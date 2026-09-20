@@ -692,30 +692,20 @@
             ).join('\n');
 
             // Format total text for Telegram
-            let orderMessage = `🛒 *НОВЕ ЗАМОВЛЕННЯ — LIQ TERN*\n\n` +
-                `👤 *Отримувач:* ${name}\n` +
-                `📞 *Телефон:* ${phone}\n` +
-                `🚚 *Доставка:* ${delivery}, м. ${city}, ${office}\n` +
-                (comment ? `💬 *Коментар:* ${comment}\n` : '') +
-                `\n📦 *Товари в замовленні:*\n${itemsText}\n\n` +
-                `💰 *Загальна сума:* ${totalPrice} ₴`;
+            let orderMessage = `🛒 НОВЕ ЗАМОВЛЕННЯ — LIQ TERN\n\n` +
+                `👤 Отримувач: ${name}\n` +
+                `📞 Телефон: ${phone}\n` +
+                `🚚 Доставка: ${delivery}, м. ${city}, ${office}\n` +
+                (comment ? `💬 Коментар: ${comment}\n` : '') +
+                `\n📦 Товари в замовленні:\n${itemsText}\n\n` +
+                `💰 Загальна сума: ${totalPrice} ₴`;
 
-            // Copy formatted text to clipboard
-            if (navigator.clipboard && navigator.clipboard.writeText) {
-                navigator.clipboard.writeText(orderMessage);
-            } else {
-                const textarea = document.createElement('textarea');
-                textarea.value = orderMessage;
-                document.body.appendChild(textarea);
-                textarea.select();
-                document.execCommand('copy');
-                document.body.removeChild(textarea);
-            }
+            // Encode text for Telegram URL deep link
+            const encodedText = encodeURIComponent(orderMessage);
+            const telegramUrl = `https://t.me/liq_tern?text=${encodedText}`;
 
-            alert('Чек з замовленням скопійовано! Зараз відкриється чат Telegram з @liq_tern — просто вставте скопійоване повідомлення та надішліть його.');
-
-            // Open Telegram direct message
-            window.open('https://t.me/liq_tern', '_blank');
+            // Open Telegram with pre-filled message directly in the chat box
+            window.open(telegramUrl, '_blank');
 
             // Reset cart and UI
             cart = [];
