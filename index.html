@@ -309,11 +309,11 @@
 
                             <div class="flex gap-4">
                                 <div class="w-12 h-12 rounded-xl bg-brand-magenta/20 border border-brand-magenta/40 flex items-center justify-center shrink-0 text-brand-magenta text-xl">
-                                    <i class="fa-solid fa-truck-fast"></i>
+                                    <i class="fa-solid fa-motorcycle"></i>
                                 </div>
                                 <div>
-                                    <h3 class="text-lg font-bold text-white">Швидка доставка по Україні</h3>
-                                    <p class="text-gray-400 text-sm">Оперативна відправка Новою Поштою та Укрпоштою в день замовлення.</p>
+                                    <h3 class="text-lg font-bold text-white">Кур'єрська доставка по Тернополю</h3>
+                                    <p class="text-gray-400 text-sm">Швидка доставка кур'єром у райони: <b>БАМ, Східний, Канада, Аляска, Центр</b>.</p>
                                 </div>
                             </div>
 
@@ -420,48 +420,41 @@
         <div class="bg-brand-card border border-brand-border p-6 rounded-2xl max-w-lg w-full mx-4 shadow-neon-purple max-h-[90vh] overflow-y-auto">
             <div class="flex justify-between items-center mb-6">
                 <h3 class="text-xl font-bold text-white flex items-center gap-2">
-                    <i class="fa-brands fa-telegram text-brand-cyan"></i> Оформлення замовлення
+                    <i class="fa-brands fa-telegram text-brand-cyan"></i> Оформлення замовлення (Кур'єр)
                 </h3>
                 <button onclick="closeCheckoutModal()" class="text-gray-400 hover:text-white"><i class="fa-solid fa-xmark text-xl"></i></button>
             </div>
 
             <p class="text-xs text-gray-400 mb-4 bg-brand-purple/10 p-3 rounded-xl border border-brand-purple/30">
-                ℹ️ Після натискання кнопки чек буде сформовано, скопійовано та відкрито чат з менеджером <b>@liq_tern</b> у Telegram для відправки.
+                🛵 Доставка кур'єром по районах: <b>БАМ, Східний, Канада, Аляска, Центр</b>.<br>
+                ℹ️ Після натискання кнопки чек буде сформовано та відкрито чат з менеджером <b>@liq_tern</b> у Telegram.
             </p>
 
             <form id="checkout-form" onsubmit="submitOrder(event)" class="space-y-4">
                 <div>
-                    <label class="block text-xs font-medium text-gray-300 mb-1">ПІБ отримувача *</label>
-                    <input type="text" id="cust-name" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-brand-purple" placeholder="Іванов Іван">
-                </div>
-
-                <div>
-                    <label class="block text-xs font-medium text-gray-300 mb-1">Номер телефону *</label>
+                    <label class="block text-xs font-medium text-gray-300 mb-1">Номер телефону для зв'язку *</label>
                     <input type="tel" id="cust-phone" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-brand-purple" placeholder="+380 98 000 00 00">
                 </div>
 
-                <div class="grid grid-cols-2 gap-3">
-                    <div>
-                        <label class="block text-xs font-medium text-gray-300 mb-1">Служба доставки</label>
-                        <select id="cust-delivery" class="w-full bg-brand-dark border border-white/10 rounded-xl px-3 py-2.5 text-white text-xs focus:outline-none focus:border-brand-purple">
-                            <option value="Нова Пошта">Нова Пошта</option>
-                            <option value="Укрпошта">Укрпошта</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="block text-xs font-medium text-gray-300 mb-1">Місто *</label>
-                        <input type="text" id="cust-city" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-brand-purple" placeholder="Тернопіль">
-                    </div>
+                <div>
+                    <label class="block text-xs font-medium text-gray-300 mb-1">Район доставки *</label>
+                    <select id="cust-district" required class="w-full bg-brand-dark border border-white/10 rounded-xl px-3 py-2.5 text-white text-xs focus:outline-none focus:border-brand-purple">
+                        <option value="БАМ">БАМ</option>
+                        <option value="Східний">Східний</option>
+                        <option value="Канада">Канада</option>
+                        <option value="Аляска">Аляска</option>
+                        <option value="Центр">Центр</option>
+                    </select>
                 </div>
 
                 <div>
-                    <label class="block text-xs font-medium text-gray-300 mb-1">№ Відділення / Поштомату *</label>
-                    <input type="text" id="cust-office" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-brand-purple" placeholder="Відділення №1">
+                    <label class="block text-xs font-medium text-gray-300 mb-1">Точна адреса (Вулиця, будинок, під'їзд / квартира) *</label>
+                    <input type="text" id="cust-address" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-brand-purple" placeholder="вул. Злуки 12, під'їзд 2, кв. 45">
                 </div>
 
                 <div>
-                    <label class="block text-xs font-medium text-gray-300 mb-1">Коментар / побажання</label>
-                    <textarea id="cust-comment" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-brand-purple" rows="2" placeholder="Додаткова інформація..."></textarea>
+                    <label class="block text-xs font-medium text-gray-300 mb-1">Коментар / побажання кур'єру</label>
+                    <textarea id="cust-comment" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-brand-purple" rows="2" placeholder="Наприклад: зателефонувати за 10 хвилин..."></textarea>
                 </div>
 
                 <div class="pt-2">
@@ -677,11 +670,9 @@
         function submitOrder(e) {
             e.preventDefault();
 
-            const name = document.getElementById('cust-name').value.trim();
             const phone = document.getElementById('cust-phone').value.trim();
-            const delivery = document.getElementById('cust-delivery').value;
-            const city = document.getElementById('cust-city').value.trim();
-            const office = document.getElementById('cust-office').value.trim();
+            const district = document.getElementById('cust-district').value;
+            const address = document.getElementById('cust-address').value.trim();
             const comment = document.getElementById('cust-comment').value.trim();
 
             const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
@@ -692,10 +683,10 @@
             ).join('\n');
 
             // Format total text for Telegram
-            let orderMessage = `🛒 НОВЕ ЗАМОВЛЕННЯ — LIQ TERN\n\n` +
-                `👤 Отримувач: ${name}\n` +
+            let orderMessage = `🛵 НОВЕ ЗАМОВЛЕННЯ (КУР'ЄР) — LIQ TERN\n\n` +
                 `📞 Телефон: ${phone}\n` +
-                `🚚 Доставка: ${delivery}, м. ${city}, ${office}\n` +
+                `📍 Район: ${district}\n` +
+                `🏠 Адреса: ${address}\n` +
                 (comment ? `💬 Коментар: ${comment}\n` : '') +
                 `\n📦 Товари в замовленні:\n${itemsText}\n\n` +
                 `💰 Загальна сума: ${totalPrice} ₴`;
