@@ -1,714 +1,1044 @@
 <!DOCTYPE html>
-<html lang="uk" class="dark scroll-smooth">
+<html lang="uk">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Liq Tern — Топові рідини для вейпінгу у Тернополі</title>
-    
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        brand: {
-                            purple: '#8b5cf6',
-                            magenta: '#d946ef',
-                            cyan: '#06b6d4',
-                            dark: '#0f0c1b',
-                            card: '#18132a',
-                            border: '#2e234c'
-                        }
-                    },
-                    boxShadow: {
-                        'neon-purple': '0 0 20px rgba(139, 92, 246, 0.4)',
-                        'neon-magenta': '0 0 20px rgba(217, 70, 239, 0.4)',
-                        'neon-cyan': '0 0 20px rgba(6, 182, 212, 0.4)',
-                    }
-                }
-            }
-        }
-    </script>
-    
-    <!-- FontAwesome icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Liq Tern — Преміальні рідини для вейпінгу в Тернополі</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
 
-    <!-- Custom CSS for specialized glow effects -->
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #0b0813;
-            color: #f3f4f6;
-            overflow-x: hidden;
-        }
+  <style>
+    :root {
+      --bg-dark: #09090b;
+      --bg-card: #121217;
+      --bg-card-hover: #1a1a22;
+      --accent-purple: #8b5cf6;
+      --accent-cyan: #06b6d4;
+      --accent-pink: #ec4899;
+      --text-main: #f4f4f5;
+      --text-muted: #a1a1aa;
+      --border-color: #27272a;
+      --glow-purple: rgba(139, 92, 246, 0.25);
+      --glow-cyan: rgba(6, 182, 212, 0.25);
+    }
 
-        .text-glow-purple {
-            text-shadow: 0 0 12px rgba(139, 92, 246, 0.6);
-        }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-        .text-glow-cyan {
-            text-shadow: 0 0 12px rgba(6, 182, 212, 0.6);
-        }
+    body {
+      font-family: 'Outfit', sans-serif;
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
 
-        /* Background Vapor Bubbles */
-        .vapor-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            z-index: -1;
-            overflow: hidden;
-            pointer-events: none;
-        }
+    h1, h2, h3, .logo-text {
+      font-family: 'Space Grotesk', sans-serif;
+    }
 
-        .vapor-blob {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(90px);
-            opacity: 0.25;
-            animation: float 18s infinite alternate ease-in-out;
-        }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
 
-        .vapor-1 {
-            top: -10%;
-            left: -10%;
-            width: 500px;
-            height: 500px;
-            background: #8b5cf6;
-        }
+    /* Header */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(9, 9, 11, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-color);
+      padding: 15px 0;
+    }
 
-        .vapor-2 {
-            bottom: 10%;
-            right: -5%;
-            width: 600px;
-            height: 600px;
-            background: #d946ef;
-            animation-delay: -5s;
-        }
+    .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
 
-        .vapor-3 {
-            top: 40%;
-            left: 30%;
-            width: 450px;
-            height: 450px;
-            background: #06b6d4;
-            animation-delay: -10s;
-        }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
 
-        @keyframes float {
-            0% { transform: translate(0, 0) scale(1); }
-            50% { transform: translate(60px, 40px) scale(1.1); }
-            100% { transform: translate(-40px, 80px) scale(0.95); }
-        }
+    .logo-icon {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan));
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      box-shadow: 0 0 15px var(--glow-purple);
+    }
 
-        /* Scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #0b0813;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #2e234c;
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #8b5cf6;
-        }
-    </style>
+    .logo-text {
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      background: linear-gradient(to right, #fff, var(--text-muted));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .logo-text span {
+      background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .tg-btn-link {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-main);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 14px;
+      padding: 8px 16px;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-color);
+      transition: all 0.3s ease;
+    }
+
+    .tg-btn-link:hover {
+      background: rgba(6, 182, 212, 0.1);
+      border-color: var(--accent-cyan);
+      color: var(--accent-cyan);
+    }
+
+    .cart-btn {
+      position: relative;
+      background: linear-gradient(135deg, var(--accent-purple), #7c3aed);
+      border: none;
+      color: white;
+      padding: 10px 18px;
+      border-radius: 20px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 600;
+      font-size: 15px;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px var(--glow-purple);
+    }
+
+    .cart-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(139, 92, 246, 0.4);
+    }
+
+    .cart-count {
+      background: var(--accent-cyan);
+      color: #000;
+      border-radius: 50%;
+      width: 22px;
+      height: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    /* Hero Section */
+    .hero {
+      padding: 70px 0 50px;
+      position: relative;
+      text-align: center;
+    }
+
+    .hero-glow {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 350px;
+      height: 350px;
+      background: radial-gradient(circle, var(--glow-purple) 0%, rgba(0,0,0,0) 70%);
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 16px;
+      border-radius: 30px;
+      background: rgba(139, 92, 246, 0.1);
+      border: 1px solid rgba(139, 92, 246, 0.3);
+      color: var(--accent-purple);
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 {
+      font-size: 46px;
+      line-height: 1.15;
+      margin-bottom: 15px;
+      font-weight: 800;
+    }
+
+    .hero h1 span {
+      background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero p {
+      color: var(--text-muted);
+      font-size: 18px;
+      max-width: 600px;
+      margin: 0 auto 30px;
+    }
+
+    /* Categories Filter */
+    .categories {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 40px;
+    }
+
+    .cat-btn {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      color: var(--text-muted);
+      padding: 10px 20px;
+      border-radius: 30px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+
+    .cat-btn:hover, .cat-btn.active {
+      background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan));
+      color: white;
+      border-color: transparent;
+      box-shadow: 0 4px 12px var(--glow-purple);
+    }
+
+    /* Products Grid */
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 25px;
+      padding-bottom: 80px;
+    }
+
+    .product-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .product-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(139, 92, 246, 0.4);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5), 0 0 20px var(--glow-purple);
+    }
+
+    .product-img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 12px;
+      margin-bottom: 15px;
+      background: #1a1a24;
+    }
+
+    .product-tag {
+      position: absolute;
+      top: 30px;
+      left: 30px;
+      background: rgba(9, 9, 11, 0.8);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--border-color);
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--accent-cyan);
+    }
+
+    .product-title {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .product-desc {
+      color: var(--text-muted);
+      font-size: 13px;
+      margin-bottom: 15px;
+      flex-grow: 1;
+    }
+
+    .nicotine-selector {
+      margin-bottom: 15px;
+    }
+
+    .nicotine-title {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+
+    .nicotine-options {
+      display: flex;
+      gap: 8px;
+    }
+
+    .nic-btn {
+      flex: 1;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-color);
+      color: var(--text-muted);
+      padding: 6px 0;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-align: center;
+    }
+
+    .nic-btn.active {
+      background: rgba(139, 92, 246, 0.2);
+      border-color: var(--accent-purple);
+      color: var(--accent-purple);
+    }
+
+    .product-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: auto;
+      padding-top: 10px;
+    }
+
+    .product-price {
+      font-size: 22px;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    .add-to-cart-btn {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--border-color);
+      color: #fff;
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .add-to-cart-btn:hover {
+      background: var(--accent-purple);
+      border-color: var(--accent-purple);
+      box-shadow: 0 0 15px var(--glow-purple);
+    }
+
+    /* Delivery Info Section */
+    .delivery-info {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 24px;
+      padding: 30px;
+      margin-bottom: 80px;
+    }
+
+    .delivery-info h2 {
+      font-size: 24px;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .districts-list {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 15px;
+    }
+
+    .district-badge {
+      background: rgba(6, 182, 212, 0.1);
+      border: 1px solid rgba(6, 182, 212, 0.3);
+      color: var(--accent-cyan);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    /* Modal Cart */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(8px);
+      z-index: 1000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.3s ease;
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .modal {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 24px;
+      width: 90%;
+      max-width: 550px;
+      max-height: 90vh;
+      overflow-y: auto;
+      padding: 30px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+      position: relative;
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .close-btn {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+
+    .close-btn:hover {
+      color: white;
+    }
+
+    .cart-items {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      margin-bottom: 20px;
+      max-height: 250px;
+      overflow-y: auto;
+    }
+
+    .cart-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(255, 255, 255, 0.03);
+      padding: 12px 16px;
+      border-radius: 12px;
+      border: 1px solid var(--border-color);
+    }
+
+    .cart-item-info h4 {
+      font-size: 15px;
+    }
+
+    .cart-item-info p {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .cart-item-controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .qty-btn {
+      background: rgba(255,255,255,0.1);
+      border: none;
+      color: white;
+      width: 26px;
+      height: 26px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .order-form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      margin-top: 20px;
+      padding-top: 15px;
+      border-top: 1px solid var(--border-color);
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .form-group label {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .form-group input, .form-group select, .form-group textarea {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 12px;
+      color: white;
+      font-family: inherit;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+      border-color: var(--accent-purple);
+    }
+
+    .submit-order-btn {
+      background: linear-gradient(135deg, #22c55e, #16a34a);
+      border: none;
+      color: white;
+      padding: 14px;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 16px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 10px;
+      transition: all 0.3s ease;
+    }
+
+    .submit-order-btn:hover {
+      opacity: 0.95;
+      transform: translateY(-1px);
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--border-color);
+      padding: 40px 0;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 14px;
+    }
+
+    .footer-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+    }
+
+    @media (max-width: 600px) {
+      .hero h1 {
+        font-size: 32px;
+      }
+      .products-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 </head>
-<body class="relative min-h-screen flex flex-col justify-between selection:bg-brand-purple selection:text-white">
+<body>
 
-    <!-- Background Animated Vapor Blobs -->
-    <div class="vapor-bg">
-        <div class="vapor-blob vapor-1"></div>
-        <div class="vapor-blob vapor-2"></div>
-        <div class="vapor-blob vapor-3"></div>
+  <!-- Header -->
+  <header>
+    <div class="container header-content">
+      <a href="#" class="logo">
+        <div class="logo-icon"><i data-lucide="droplet"></i></div>
+        <div class="logo-text">Liq <span>Tern</span></div>
+      </a>
+      <div class="header-actions">
+        <a href="https://t.me/liq_tern" target="_blank" class="tg-btn-link">
+          <i data-lucide="send" style="width: 16px; height: 16px;"></i>
+          <span>@liq_tern</span>
+        </a>
+        <button class="cart-btn" onclick="toggleCart()">
+          <i data-lucide="shopping-bag" style="width: 18px; height: 18px;"></i>
+          <span>Кошик</span>
+          <span class="cart-count" id="cart-count">0</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-glow"></div>
+    <div class="container">
+      <div class="hero-badge">
+        <i data-lucide="truck" style="width: 16px; height: 16px;"></i>
+        <span>Швидка кур'єрська доставка в Тернополі</span>
+      </div>
+      <h1>Соковитий пар у <span>твоєму районі</span></h1>
+      <p>Преміальні сольові рідини з насиченим смаком. Тільки кур'єрська доставка по ключових районах міста!</p>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <main class="container">
+    
+    <!-- Categories -->
+    <div class="categories">
+      <button class="cat-btn active" onclick="filterProducts('all', this)">Всі смаки</button>
+      <button class="cat-btn" onclick="filterProducts('fruit', this)">Фруктові</button>
+      <button class="cat-btn" onclick="filterProducts('berry', this)">Ягідні</button>
+      <button class="cat-btn" onclick="filterProducts('ice', this)">Освіжаючі (Ice)</button>
+      <button class="cat-btn" onclick="filterProducts('dessert', this)">Десертні</button>
     </div>
 
-    <!-- Navigation Bar -->
-    <header class="sticky top-0 z-40 bg-brand-dark/80 backdrop-blur-lg border-b border-brand-border/60">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+    <!-- Products Grid -->
+    <div class="products-grid" id="products-container">
+      <!-- Products generated via JS -->
+    </div>
+
+    <!-- Delivery Info Section -->
+    <section class="delivery-info">
+      <h2><i data-lucide="map-pin" style="color: var(--accent-cyan);"></i> Зони кур'єрської доставки</h2>
+      <p>Ми працюємо <strong>виключно кур'єром</strong>. Доставка здійснюється прямо до вашого під'їзду або локації в таких районах:</p>
+      <div class="districts-list">
+        <span class="district-badge">📍 БАМ</span>
+        <span class="district-badge">📍 Східний</span>
+        <span class="district-badge">📍 Канада</span>
+        <span class="district-badge">📍 Аляска</span>
+        <span class="district-badge">📍 Центр</span>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Cart Modal -->
+  <div class="modal-overlay" id="cart-modal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3>Твій кошик</h3>
+        <button class="close-btn" onclick="toggleCart()"><i data-lucide="x"></i></button>
+      </div>
+
+      <div class="cart-items" id="cart-items">
+        <!-- Cart items via JS -->
+      </div>
+
+      <div style="display: flex; justify-content: space-between; font-weight: 700; font-size: 18px; margin-bottom: 20px;">
+        <span>Разом до сплати:</span>
+        <span id="cart-total" style="color: var(--accent-cyan);">0 ₴</span>
+      </div>
+
+      <form class="order-form" onsubmit="submitOrder(event)">
+        <div class="form-group">
+          <label>Номер телефону *</label>
+          <input type="tel" id="order-phone" placeholder="+380 99 123 45 67" required>
+        </div>
+
+        <div class="form-group">
+          <label>Район доставки *</label>
+          <select id="order-district" required>
+            <option value="" disabled selected>Оберіть свій район</option>
+            <option value="БАМ">БАМ</option>
+            <option value="Східний">Східний</option>
+            <option value="Канада">Канада</option>
+            <option value="Аляска">Аляска</option>
+            <option value="Центр">Центр</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Локація *</label>
+          <input type="text" id="order-address" placeholder="Вулиця, будинок, під'їзд / квартира або точна геолокація" required>
+        </div>
+
+        <div class="form-group">
+          <label>Коментар / побажання кур'єру</label>
+          <textarea id="order-comment" rows="2" placeholder="Наприклад: привезти на 18:00 або зателефонувати за 10 хвилин..."></textarea>
+        </div>
+
+        <button type="submit" class="submit-order-btn">
+          <i data-lucide="send"></i>
+          Надіслати замовлення в Telegram
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container footer-content">
+      <div class="logo">
+        <div class="logo-text">Liq <span>Tern</span></div>
+      </div>
+      <p>Кур'єрська доставка рідин для вейпінгу у Тернополі (БАМ, Східний, Канада, Аляска, Центр).</p>
+      <p>Зв'язок у Telegram: <a href="https://t.me/liq_tern" style="color: var(--accent-cyan); text-decoration: none;">@liq_tern</a></p>
+      <p style="font-size: 12px; color: #52525b; margin-top: 10px;">&copy; 2026 Liq Tern. Всі права захищено.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Products Data
+    const products = [
+  {
+    id: 1,
+    title: "Chaser Berry/Ягоди",
+    category: "berry",
+    price: 280,
+    desc: "Мікс стиглого лісового міксу полуниці, ожини та малини з легким прохолодним кулером.",
+    image: "https://i.ibb.co/PzMdryXC/image.webp"
+  },
+  {
+    id: 2,
+    title: "Chaser Mint/Мята",
+    category: "ice",
+    price: 290,
+    desc: "Соковитий стиглий манго в поєднанні з тропічною маракуєю та крижаною свіжістю.",
+    image: "https://i.ibb.co/v67JP05D/mockup-for-pods-30ml-myata-ultra-800x800w.jpg"
+  },
+  {
+    id: 3,
+    title: "Chaser Смородина Ментол",
+    category: "ice",
+    price: 280,
+    desc: "Подвійна порція солодкої м'якоті кавуна з освіжаючим льодом.",
+    image: "https://i.ibb.co/GQRzLWDR/mockup-for-pods-30ml-smorodina-mentool-ultra-800x800w.jpg"
+  },
+  {
+    id: 4,
+    title: "Chaser Банан",
+    category: "fruit",
+    price: 300,
+    desc: "Ніжний заварний ванільний крем у поєднанні з розсипчастим пісочним тістом.",
+    image: "https://i.ibb.co/3m8WSCPb/image.png"
+  },
+  {
+    id: 5,
+    title: "Chaser Виноград",
+    category: "berry",
+    price: 280,
+    desc: "Кисле зелене яблуко з бадьорим цитрусовим післясмаком лайму.",
+    image: "https://i.ibb.co/3m8WSCPb/image.png"
+  },
+  {
+    id: 6,
+    title: "Chaser Кавун",
+    category: "berry",
+    price: 290,
+    desc: "Класичний лимонад із синьої блакитної малини з приємною кислинкою.",
+    image: "https://i.ibb.co/3m8WSCPb/image.png"
+  },
+  {
+    id: 7,
+    title: "Chaser Кавун Ментол",
+    category: "ice",
+    price: 290,
+    desc: "Класичний лимонад із синьої блакитної малини з приємною кислинкою.",
+    image: "https://i.ibb.co/3m8WSCPb/image.png"
+  },
+  {
+    id: 8,
+    title: "Chaser Лимон",
+    category: "fruit",
+    price: 290,
+    desc: "Класичний лимонад із синьої блакитної малини з приємною кислинкою.",
+    image: "https://i.ibb.co/3m8WSCPb/image.png"
+  },
+  {
+    id: 9,
+    title: "Chaser Гранат",
+    category: "fruit",
+    price: 290,
+    desc: "Класичний лимонад із синьої блакитної малини з приємною кислинкою.",
+    image: "https://i.ibb.co/3m8WSCPb/image.png"
+  },
+  {
+    id: 10,
+    title: "Chaser Жовта малина",
+    category: "berry",
+    price: 290,
+    desc: "Класичний лимонад із синьої блакитної малини з приємною кислинкою.",
+    image: "https://i.ibb.co/3m8WSCPb/image.png"
+  },
+  {
+    id: 11,
+    title: "Chaser Жовта черешня",
+    category: "berry",
+    price: 290,
+    desc: "Класичний лимонад із синьої блакитної малини з приємною кислинкою.",
+    image: "https://i.ibb.co/3m8WSCPb/image.png"
+  },
+  {
+    id: 12,
+    title: "Chaser Жовтий Драгонфрут",
+    category: "fruit",
+    price: 290,
+    desc: "Класичний лимонад із синьої блакитної малини з приємною кислинкою.",
+    image: "https://i.ibb.co/3m8WSCPb/image.png"
+  },
+  {
+    id: 13,
+    title: "Chaser Грейпфрут",
+    category: "fruit",
+    price: 290,
+    desc: "Класичний лимонад із синьої блакитної малини з приємною кислинкою.",
+    image: "https://i.ibb.co/3m8WSCPb/image.png"
+  },
+  {
+    id: 14,
+    title: "Chaser Порічка",
+    category: "berry",
+    price: 290,
+    desc: "Класичний лимонад із синьої блакитної малини з приємною кислинкою.",
+    image: "https://i.ibb.co/3m8WSCPb/image.png"
+  },
+  {
+    id: 15,
+    title: "Chaser Обліпиха",
+    category: "berry",
+    price: 290,
+    desc: "Класичний лимонад із синьої блакитної малини з приємною кислинкою.",
+    image: "https://i.ibb.co/3m8WSCPb/image.png"
+  },
+  {
+    id: 16,
+    title: "Chaser Журавлина",
+    category: "berry",
+    price: 290,
+    desc: "Класичний лимонад із синьої блакитної малини з приємною кислинкою.",
+    image: "https://i.ibb.co/3m8WSCPb/image.png"
+  },
+  {
+    id: 17,
+    title: "Chaser Барбарис",
+    category: "dessert",
+    price: 290,
+    desc: "Класичний лимонад із синьої блакитної малини з приємною кислинкою.",
+    image: "https://i.ibb.co/3m8WSCPb/image.png"
+  }
+];
+
+    let cart = [];
+    let selectedNicotine = {};
+
+    // Initialize Page
+    document.addEventListener('DOMContentLoaded', () => {
+      lucide.createIcons();
+      
+      // Default nicotine values
+      products.forEach(p => {
+        selectedNicotine[p.id] = '50mg';
+      });
+
+      renderProducts(products);
+    });
+
+    // Render Products
+    function renderProducts(items) {
+      const container = document.getElementById('products-container');
+      container.innerHTML = items.map(p => {
+        const currentNic = selectedNicotine[p.id] || '50mg';
+        return `
+          <div class="product-card">
+            <span class="product-tag">Сольова</span>
+            <img src="${p.image}" alt="${p.title}" class="product-img">
+            <h3 class="product-title">${p.title}</h3>
+            <p class="product-desc">${p.desc}</p>
             
-            <!-- Logo -->
-            <a href="#" class="flex items-center gap-3 group">
-                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-purple via-brand-magenta to-brand-cyan p-0.5 shadow-neon-purple transition-transform group-hover:scale-105">
-                    <div class="w-full h-full bg-brand-dark rounded-[10px] flex items-center justify-center">
-                        <i class="fa-solid font-bold text-transparent bg-clip-text bg-gradient-to-r from-brand-purple to-brand-cyan text-xl">L</i>
-                    </div>
-                </div>
-                <span class="text-2xl font-extrabold tracking-wider bg-gradient-to-r from-white via-gray-200 to-brand-cyan bg-clip-text text-transparent">
-                    LIQ <span class="text-brand-purple text-glow-purple">TERN</span>
-                </span>
-            </a>
-
-            <!-- Desktop Nav Links -->
-            <nav class="hidden md:flex items-center gap-8 font-medium text-sm text-gray-300">
-                <a href="#catalog" class="hover:text-brand-purple transition-colors">Каталог</a>
-                <a href="#popular" class="hover:text-brand-purple transition-colors">Популярне</a>
-                <a href="#about" class="hover:text-brand-purple transition-colors">Про нас</a>
-                <a href="#contacts" class="hover:text-brand-purple transition-colors">Контакти</a>
-            </nav>
-
-            <!-- Telegram & Cart Buttons -->
-            <div class="flex items-center gap-3">
-                <a href="https://t.me/liq_tern" target="_blank" class="hidden sm:flex items-center gap-2 px-3.5 py-2 rounded-xl bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 font-semibold hover:bg-cyan-500 hover:text-white transition-all text-xs">
-                    <i class="fa-brands fa-telegram text-base"></i>
-                    <span>@liq_tern</span>
-                </a>
-
-                <button onclick="toggleCart()" class="relative p-3 rounded-xl bg-white/5 border border-white/10 hover:border-brand-purple/50 transition-all group">
-                    <i class="fa-solid fa-basket-shopping text-gray-300 group-hover:text-brand-purple transition-colors text-lg"></i>
-                    <span id="cart-count" class="absolute -top-1 -right-1 bg-gradient-to-r from-brand-magenta to-brand-purple text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center shadow-sm">
-                        0
-                    </span>
-                </button>
-
-                <button onclick="toggleMobileMenu()" class="md:hidden p-3 rounded-xl bg-white/5 border border-white/10 text-gray-300">
-                    <i class="fa-solid fa-bars text-lg"></i>
-                </button>
-            </div>
-        </div>
-
-        <!-- Mobile Menu -->
-        <div id="mobile-menu" class="hidden md:hidden border-b border-brand-border bg-brand-card/95 px-4 pt-2 pb-6 space-y-3">
-            <a href="#catalog" onclick="toggleMobileMenu()" class="block py-2 text-gray-300 hover:text-brand-purple font-medium">Каталог</a>
-            <a href="#popular" onclick="toggleMobileMenu()" class="block py-2 text-gray-300 hover:text-brand-purple font-medium">Популярне</a>
-            <a href="#about" onclick="toggleMobileMenu()" class="block py-2 text-gray-300 hover:text-brand-purple font-medium">Про нас</a>
-            <a href="#contacts" onclick="toggleMobileMenu()" class="block py-2 text-gray-300 hover:text-brand-purple font-medium">Контакти</a>
-            <a href="https://t.me/liq_tern" target="_blank" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 font-semibold text-xs">
-                <i class="fa-brands fa-telegram text-base"></i> Telegram: @liq_tern
-            </a>
-        </div>
-    </header>
-
-    <main class="flex-grow">
-        <!-- Hero Section -->
-        <section class="relative py-20 lg:py-32 overflow-hidden">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="grid lg:grid-cols-2 gap-12 items-center">
-                    
-                    <div class="space-y-6 text-center lg:text-left">
-                        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-purple/10 border border-brand-purple/30 text-brand-purple text-xs font-semibold uppercase tracking-wider">
-                            <i class="fa-solid fa-bolt text-brand-magenta animate-pulse"></i> Онлайн-магазин рідин для вейпу
-                        </div>
-                        
-                        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black leading-tight">
-                            Найкращі рідини для вейпінгу <span class="bg-gradient-to-r from-brand-purple via-brand-magenta to-brand-cyan bg-clip-text text-transparent text-glow-purple">Liq Tern</span>
-                        </h1>
-                        
-                        <p class="text-gray-400 text-lg max-w-xl mx-auto lg:mx-0">
-                            Преміальні сольові та органічні рідини, насичені смаки, гарантія якості. Швидка відправка по всій Україні!
-                        </p>
-
-                        <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-2">
-                            <a href="#catalog" class="px-8 py-4 rounded-xl bg-gradient-to-r from-brand-purple via-brand-magenta to-brand-cyan text-white font-bold shadow-neon-purple hover:scale-105 transition-all text-center">
-                                Переглянути каталог <i class="fa-solid fa-arrow-right ml-2 text-sm"></i>
-                            </a>
-                            <a href="https://t.me/liq_tern" target="_blank" class="px-8 py-4 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 text-white font-semibold transition-all text-center flex items-center justify-center gap-2">
-                                <i class="fa-brands fa-telegram text-cyan-400"></i> Написати менеджеру
-                            </a>
-                        </div>
-
-                        <!-- Stats Badge -->
-                        <div class="grid grid-cols-3 gap-4 pt-8 border-t border-brand-border/60 max-w-md mx-auto lg:mx-0 text-center">
-                            <div>
-                                <p class="text-2xl font-bold text-brand-cyan">100+</p>
-                                <p class="text-xs text-gray-400">Смаків у наявності</p>
-                            </div>
-                            <div>
-                                <p class="text-2xl font-bold text-brand-magenta">100%</p>
-                                <p class="text-xs text-gray-400">Оригінал</p>
-                            </div>
-                            <div>
-                                <p class="text-2xl font-bold text-brand-purple">Швидка</p>
-                                <p class="text-xs text-gray-400">Відправка</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Hero Visual -->
-                    <div class="relative flex justify-center">
-                        <div class="relative w-72 sm:w-96 h-72 sm:h-96 rounded-3xl bg-gradient-to-tr from-brand-purple/30 to-brand-cyan/20 border border-white/10 backdrop-blur-2xl p-8 flex flex-col justify-between shadow-neon-purple">
-                            <div class="flex justify-between items-start">
-                                <span class="bg-brand-magenta/20 border border-brand-magenta text-brand-magenta text-xs px-3 py-1 rounded-full font-semibold">ТОП Продажу</span>
-                                <i class="fa-solid fa-cloud-bolt text-brand-cyan text-3xl"></i>
-                            </div>
-                            
-                            <div class="text-center my-auto">
-                                <div class="text-6xl mb-2">🫐🧊</div>
-                                <h3 class="text-2xl font-bold text-white">Berry Blast Ice</h3>
-                                <p class="text-sm text-gray-400 mt-1">30ml • Salt Nicotine</p>
-                            </div>
-
-                            <div class="flex justify-between items-center bg-black/40 p-4 rounded-xl border border-white/5">
-                                <span class="text-xl font-bold text-brand-cyan">280 ₴</span>
-                                <button onclick="addToCart(1, 'Berry Blast Ice', 280, '🫐🧊', '50mg')" class="px-4 py-2 bg-brand-purple hover:bg-brand-magenta transition-colors text-white font-medium rounded-lg text-sm">
-                                    + В кошик
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </section>
-
-        <!-- Catalog Section -->
-        <section id="catalog" class="py-20">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
-                    <div>
-                        <h2 class="text-3xl font-extrabold text-white sm:text-4xl">Каталог <span class="text-brand-cyan text-glow-cyan">Рідин</span></h2>
-                        <p class="text-gray-400 mt-1">Оберіть смак, міцність та замовляйте у зручний час</p>
-                    </div>
-
-                    <!-- Filter Buttons -->
-                    <div id="filter-buttons" class="flex flex-wrap gap-2">
-                        <button onclick="filterCatalog('all')" class="filter-btn active px-4 py-2 rounded-xl text-sm font-semibold transition-all bg-brand-purple text-white">Всі</button>
-                        <button onclick="filterCatalog('fruit')" class="filter-btn px-4 py-2 rounded-xl text-sm font-semibold transition-all bg-white/5 border border-white/10 text-gray-300 hover:bg-white/10">Фруктові</button>
-                        <button onclick="filterCatalog('berry')" class="filter-btn px-4 py-2 rounded-xl text-sm font-semibold transition-all bg-white/5 border border-white/10 text-gray-300 hover:bg-white/10">Ягідні</button>
-                        <button onclick="filterCatalog('dessert')" class="filter-btn px-4 py-2 rounded-xl text-sm font-semibold transition-all bg-white/5 border border-white/10 text-gray-300 hover:bg-white/10">Десертні</button>
-                        <button onclick="filterCatalog('cool')" class="filter-btn px-4 py-2 rounded-xl text-sm font-semibold transition-all bg-white/5 border border-white/10 text-gray-300 hover:bg-white/10">Освіжаючі</button>
-                        <button onclick="filterCatalog('tobacco')" class="filter-btn px-4 py-2 rounded-xl text-sm font-semibold transition-all bg-white/5 border border-white/10 text-gray-300 hover:bg-white/10">Тютюнові</button>
-                    </div>
-                </div>
-
-                <!-- Product Grid -->
-                <div id="products-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                    <!-- Dynamic rendering by JS -->
-                </div>
-            </div>
-        </section>
-
-        <!-- About Section -->
-        <section id="about" class="py-20 bg-black/40 border-t border-brand-border/40">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="grid lg:grid-cols-2 gap-12 items-center">
-                    <div>
-                        <h2 class="text-3xl font-extrabold text-white mb-6">Чому обирають <span class="text-brand-purple">Liq Tern</span>?</h2>
-                        
-                        <div class="space-y-6">
-                            <div class="flex gap-4">
-                                <div class="w-12 h-12 rounded-xl bg-brand-purple/20 border border-brand-purple/40 flex items-center justify-center shrink-0 text-brand-purple text-xl">
-                                    <i class="fa-solid fa-shield-halved"></i>
-                                </div>
-                                <div>
-                                    <h3 class="text-lg font-bold text-white">100% Оригінальна продукція</h3>
-                                    <p class="text-gray-400 text-sm">Працюємо безпосередньо з перевіреними виробниками. Жодних підробок чи дешевих клонів.</p>
-                                </div>
-                            </div>
-
-                            <div class="flex gap-4">
-                                <div class="w-12 h-12 rounded-xl bg-brand-magenta/20 border border-brand-magenta/40 flex items-center justify-center shrink-0 text-brand-magenta text-xl">
-                                    <i class="fa-solid fa-motorcycle"></i>
-                                </div>
-                                <div>
-                                    <h3 class="text-lg font-bold text-white">Кур'єрська доставка по Тернополю</h3>
-                                    <p class="text-gray-400 text-sm">Швидка доставка кур'єром у райони: <b>БАМ, Східний, Канада, Аляска, Центр</b>.</p>
-                                </div>
-                            </div>
-
-                            <div class="flex gap-4">
-                                <div class="w-12 h-12 rounded-xl bg-brand-cyan/20 border border-brand-cyan/40 flex items-center justify-center shrink-0 text-brand-cyan text-xl">
-                                    <i class="fa-solid fa-droplet"></i>
-                                </div>
-                                <div>
-                                    <h3 class="text-lg font-bold text-white">Найкраща насиченість смаків</h3>
-                                    <p class="text-gray-400 text-sm">Великий вибір сольових (Salt) та органічних (Organic) рідин для будь-яких пристроїв.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Online Support Box -->
-                    <div class="bg-brand-card border border-brand-border rounded-2xl p-8 relative overflow-hidden shadow-neon-purple">
-                        <div class="absolute -right-10 -bottom-10 w-40 h-40 bg-brand-cyan/10 rounded-full blur-3xl"></div>
-                        <h3 class="text-2xl font-bold text-white mb-4"><i class="fa-brands fa-telegram text-brand-cyan mr-2"></i> Онлайн підтримка та замовлення</h3>
-                        <p class="text-gray-300 text-sm mb-6">Маєш питання щодо вибору смаку чи міцності? Напиши нам прямо в Telegram, ми з радістю допоможемо підібрати ідеальну рідину!</p>
-                        
-                        <ul class="space-y-3 text-sm text-gray-400 mb-6">
-                            <li><i class="fa-regular fa-clock text-brand-purple mr-2"></i> Прийом замовлень: Щодня 10:00 — 21:00</li>
-                            <li><i class="fa-brands fa-telegram text-brand-purple mr-2"></i> Telegram: <a href="https://t.me/liq_tern" target="_blank" class="text-brand-cyan hover:underline">@liq_tern</a></li>
-                        </ul>
-
-                        <a href="https://t.me/liq_tern" target="_blank" class="inline-flex items-center justify-center gap-2 w-full py-3 bg-gradient-to-r from-brand-purple to-brand-magenta text-center font-semibold rounded-xl text-white transition-all shadow-neon-purple hover:opacity-95">
-                            <i class="fa-brands fa-telegram text-lg"></i> Зв'язатися в Telegram
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Contacts Section -->
-        <section id="contacts" class="py-16">
-            <div class="max-w-4xl mx-auto px-4 text-center">
-                <h2 class="text-3xl font-extrabold text-white mb-4">Є запитання? <span class="text-brand-magenta">Пиши нам!</span></h2>
-                <p class="text-gray-400 mb-8">Ми завжди на зв'язку в Telegram для швидкого замовлення та підбору смаків.</p>
-
-                <div class="flex flex-wrap gap-4 justify-center">
-                    <a href="https://t.me/liq_tern" target="_blank" class="px-8 py-4 rounded-xl bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 font-semibold hover:bg-cyan-500 hover:text-white transition-all flex items-center gap-3 text-lg shadow-neon-cyan">
-                        <i class="fa-brands fa-telegram text-2xl"></i> Telegram: @liq_tern
-                    </a>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <!-- Footer -->
-    <footer class="bg-brand-dark border-t border-brand-border/60 py-8">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4">
-            <div class="text-center md:text-left">
-                <span class="text-lg font-bold text-white">LIQ <span class="text-brand-purple">TERN</span></span>
-                <p class="text-xs text-gray-500 mt-1">© 2026 Liq Tern. Інтернет-магазин рідин для вейпінгу.</p>
+            <div class="nicotine-selector">
+              <div class="nicotine-title">Міцність нікотину:</div>
+              <div class="nicotine-options">
+                <button type="button" class="nic-btn ${currentNic === '0mg' ? 'active' : ''}" onclick="selectNicotine(${p.id}, '0mg')">0 mg</button>
+                <button type="button" class="nic-btn ${currentNic === '50mg' ? 'active' : ''}" onclick="selectNicotine(${p.id}, '50mg')">50 mg</button>
+                <button type="button" class="nic-btn ${currentNic === '65mg' ? 'active' : ''}" onclick="selectNicotine(${p.id}, '65mg')">65 mg</button>
+              </div>
             </div>
 
-            <div class="text-center">
-                <a href="https://t.me/liq_tern" target="_blank" class="text-xs text-brand-cyan hover:underline inline-flex items-center gap-1">
-                    <i class="fa-brands fa-telegram"></i> @liq_tern
-                </a>
+            <div class="product-footer">
+              <span class="product-price">${p.price} ₴</span>
+              <button class="add-to-cart-btn" onclick="addToCart(${p.id})">
+                <i data-lucide="plus"></i>
+              </button>
             </div>
-        </div>
-    </footer>
+          </div>
+        `;
+      }).join('');
+      lucide.createIcons();
+    }
 
-    <!-- Shopping Cart Drawer (Modal) -->
-    <div id="cart-drawer" class="fixed inset-0 z-50 pointer-events-none opacity-0 transition-opacity duration-300">
-        <!-- Backdrop -->
-        <div id="cart-backdrop" onclick="toggleCart()" class="absolute inset-0 bg-black/70 backdrop-blur-sm"></div>
+    // Select Nicotine Strength
+    function selectNicotine(productId, strength) {
+      selectedNicotine[productId] = strength;
+      
+      // Update UI active buttons
+      const currentCategory = document.querySelector('.cat-btn.active').getAttribute('onclick').match(/'([^']+)'/)[1];
+      const itemsToRender = currentCategory === 'all' ? products : products.filter(p => p.category === currentCategory);
+      renderProducts(itemsToRender);
+    }
 
-        <!-- Drawer Content -->
-        <div id="cart-content" class="absolute right-0 top-0 h-full w-full max-w-md bg-brand-card border-l border-brand-border p-6 flex flex-col shadow-2xl transform translate-x-full transition-transform duration-300 pointer-events-auto">
-            
-            <div class="flex items-center justify-between pb-4 border-b border-brand-border">
-                <h3 class="text-xl font-bold text-white flex items-center gap-2">
-                    <i class="fa-solid fa-basket-shopping text-brand-purple"></i> Кошик
-                </h3>
-                <button onclick="toggleCart()" class="text-gray-400 hover:text-white p-2">
-                    <i class="fa-solid fa-xmark text-xl"></i>
-                </button>
-            </div>
+    // Filter Products
+    function filterProducts(category, btn) {
+      document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
 
-            <!-- Cart Items Scroll Area -->
-            <div id="cart-items" class="flex-grow overflow-y-auto py-4 space-y-4">
-                <!-- Dynamic Items Inserted via JavaScript -->
-            </div>
+      if (category === 'all') {
+        renderProducts(products);
+      } else {
+        const filtered = products.filter(p => p.category === category);
+        renderProducts(filtered);
+      }
+    }
 
-            <!-- Cart Summary & Checkout -->
-            <div class="border-t border-brand-border pt-4 space-y-4">
-                <div class="flex justify-between text-lg font-bold">
-                    <span class="text-gray-300">Разом:</span>
-                    <span id="cart-total" class="text-brand-cyan">0 ₴</span>
-                </div>
+    // Cart Functions
+    function toggleCart() {
+      document.getElementById('cart-modal').classList.toggle('active');
+    }
 
-                <button onclick="openCheckoutModal()" class="w-full py-4 rounded-xl bg-gradient-to-r from-brand-purple to-brand-magenta text-white font-bold hover:shadow-neon-purple transition-all flex items-center justify-center gap-2">
-                    <i class="fa-brands fa-telegram text-xl"></i> Оформити замовлення
-                </button>
-            </div>
-        </div>
-    </div>
+    function addToCart(productId) {
+      const product = products.find(p => p.id === productId);
+      const nicStrength = selectedNicotine[productId] || '50mg';
+      
+      const cartItemId = `${productId}-${nicStrength}`;
+      const existing = cart.find(item => item.cartItemId === cartItemId);
 
-    <!-- Checkout Modal -->
-    <div id="checkout-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md hidden">
-        <div class="bg-brand-card border border-brand-border p-6 rounded-2xl max-w-lg w-full mx-4 shadow-neon-purple max-h-[90vh] overflow-y-auto">
-            <div class="flex justify-between items-center mb-6">
-                <h3 class="text-xl font-bold text-white flex items-center gap-2">
-                    <i class="fa-brands fa-telegram text-brand-cyan"></i> Оформлення замовлення (Кур'єр)
-                </h3>
-                <button onclick="closeCheckoutModal()" class="text-gray-400 hover:text-white"><i class="fa-solid fa-xmark text-xl"></i></button>
-            </div>
-
-            <p class="text-xs text-gray-400 mb-4 bg-brand-purple/10 p-3 rounded-xl border border-brand-purple/30">
-                🛵 Доставка кур'єром по районах: <b>БАМ, Східний, Канада, Аляска, Центр</b>.<br>
-                ℹ️ Після натискання кнопки чек буде сформовано та відкрито чат з менеджером <b>@liq_tern</b> у Telegram.
-            </p>
-
-            <form id="checkout-form" onsubmit="submitOrder(event)" class="space-y-4">
-                <div>
-                    <label class="block text-xs font-medium text-gray-300 mb-1">Номер телефону для зв'язку *</label>
-                    <input type="tel" id="cust-phone" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-brand-purple" placeholder="+380 98 000 00 00">
-                </div>
-
-                <div>
-                    <label class="block text-xs font-medium text-gray-300 mb-1">Район доставки *</label>
-                    <select id="cust-district" required class="w-full bg-brand-dark border border-white/10 rounded-xl px-3 py-2.5 text-white text-xs focus:outline-none focus:border-brand-purple">
-                        <option value="БАМ">БАМ</option>
-                        <option value="Східний">Східний</option>
-                        <option value="Канада">Канада</option>
-                        <option value="Аляска">Аляска</option>
-                        <option value="Центр">Центр</option>
-                    </select>
-                </div>
-
-                <div>
-                    <label class="block text-xs font-medium text-gray-300 mb-1">Локація *</label>
-                    <input type="text" id="cust-address" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-brand-purple" placeholder="Вулиця, будинок, під'їзд / квартира або точна геолокація">
-                </div>
-
-                <div>
-                    <label class="block text-xs font-medium text-gray-300 mb-1">Коментар / побажання кур'єру</label>
-                    <textarea id="cust-comment" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-brand-purple" rows="2" placeholder="Наприклад: привезти на 18:00 або зателефонувати за 10 хвилин..."></textarea>
-                </div>
-
-                <div class="pt-2">
-                    <button type="submit" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-brand-purple via-brand-magenta to-brand-cyan text-white font-bold hover:shadow-neon-purple transition-all flex items-center justify-center gap-2">
-                        <i class="fa-brands fa-telegram text-lg"></i> Надіслати замовлення в Telegram
-                    </button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <!-- JavaScript Application Logic -->
-    <script>
-        // Sample Products Database
-        const products = [
-            { id: 1, name: "Berry Blast Ice", category: "berry", price: 280, icon: "🫐🧊", ratio: "50/50", volume: "30ml", desc: "Мікс суниці, лохини та ожини з льодом." },
-            { id: 2, name: "Mango Ice Freeze", category: "cool", price: 290, icon: "🥭🧊", ratio: "50/50", volume: "30ml", desc: "Соковите тропічне манго з кулером." },
-            { id: 3, name: "Strawberry Watermelon", category: "fruit", price: 280, icon: "🍓🍉", ratio: "50/50", volume: "30ml", desc: "Спела полуниця та стиглий кавун." },
-            { id: 4, name: "Lemon Mint Lemonade", category: "cool", price: 275, icon: "🍋🍃", ratio: "50/50", volume: "30ml", desc: "Освіжаючий кисленький цитрусовий мікс." },
-            { id: 5, name: "Vanilla Caramel Custard", category: "dessert", price: 285, icon: "🍮🍯", ratio: "70/30", volume: "60ml", desc: "Ніжний ванільний крем із вишуканою карамеллю." },
-            { id: 6, name: "Classic Cuban Tobacco", category: "tobacco", price: 300, icon: "🍂💨", ratio: "50/50", volume: "30ml", desc: "Насичений тютюн з легким горіховим присмаком." },
-            { id: 7, name: "Double Apple Shisha", category: "fruit", price: 270, icon: "🍏🍎", ratio: "50/50", volume: "30ml", desc: "Соковите червоне та кисле зелене яблуко." },
-            { id: 8, name: "Wild Grape Soda", category: "berry", price: 285, icon: "🍇🥤", ratio: "50/50", volume: "30ml", desc: "Солодкий темний виноград у форматі газованого напою." }
-        ];
-
-        // State Management
-        let cart = [];
-
-        // Initialize Page
-        document.addEventListener('DOMContentLoaded', () => {
-            renderProducts('all');
+      if (existing) {
+        existing.qty++;
+      } else {
+        cart.push({
+          ...product,
+          cartItemId: cartItemId,
+          selectedNicotine: nicStrength,
+          qty: 1
         });
+      }
 
-        // Render Catalog Items
-        function renderProducts(filter) {
-            const grid = document.getElementById('products-grid');
-            grid.innerHTML = '';
+      updateCartUI();
+    }
 
-            const filteredProducts = filter === 'all' 
-                ? products 
-                : products.filter(p => p.category === filter);
-
-            filteredProducts.forEach(product => {
-                const card = document.createElement('div');
-                card.className = "bg-brand-card/70 border border-brand-border rounded-2xl p-5 hover:border-brand-purple/50 transition-all hover:-translate-y-1 flex flex-col justify-between";
-                
-                card.innerHTML = `
-                    <div>
-                        <div class="h-36 bg-gradient-to-b from-white/5 to-transparent rounded-xl flex items-center justify-center text-5xl mb-4 relative">
-                            <span>${product.icon}</span>
-                            <span class="absolute top-2 right-2 text-[10px] font-bold px-2 py-0.5 rounded bg-white/10 text-gray-300">${product.volume}</span>
-                        </div>
-                        <div class="flex items-center justify-between text-xs text-gray-400 mb-2">
-                            <span>VG/PG: ${product.ratio}</span>
-                            <span class="capitalize text-brand-cyan">${getCategoryLabel(product.category)}</span>
-                        </div>
-                        <h3 class="text-lg font-bold text-white mb-1">${product.name}</h3>
-                        <p class="text-gray-400 text-xs mb-4 line-clamp-2">${product.desc}</p>
-                    </div>
-
-                    <div>
-                        <!-- Strength Selector -->
-                        <div class="mb-4">
-                            <label class="text-[11px] text-gray-400 block mb-1">Міцність нікотину:</label>
-                            <select id="nic-${product.id}" class="w-full bg-brand-dark/80 border border-white/10 text-xs rounded-lg px-2 py-1.5 text-gray-200 focus:outline-none focus:border-brand-purple">
-                                <option value="25mg">25 mg (Salt)</option>
-                                <option value="50mg" selected>50 mg (Salt)</option>
-                                <option value="0mg">0 mg (Без нікотину)</option>
-                            </select>
-                        </div>
-
-                        <div class="flex items-center justify-between pt-2 border-t border-white/5">
-                            <span class="text-xl font-bold text-white">${product.price} ₴</span>
-                            <button onclick="handleAddFromCatalog(${product.id})" class="px-4 py-2 bg-gradient-to-r from-brand-purple to-brand-magenta hover:opacity-90 transition-all text-white font-medium text-xs rounded-xl shadow-neon-purple flex items-center gap-1.5">
-                                <i class="fa-solid fa-plus"></i> В кошик
-                            </button>
-                        </div>
-                    </div>
-                `;
-                grid.appendChild(card);
-            });
+    function updateQty(cartItemId, delta) {
+      const item = cart.find(i => i.cartItemId === cartItemId);
+      if (item) {
+        item.qty += delta;
+        if (item.qty <= 0) {
+          cart = cart.filter(i => i.cartItemId !== cartItemId);
         }
+      }
+      updateCartUI();
+    }
 
-        function getCategoryLabel(cat) {
-            const labels = {
-                fruit: 'Фруктовий',
-                berry: 'Ягідний',
-                dessert: 'Десертний',
-                cool: 'Освіжаючий',
-                tobacco: 'Тютюновий'
-            };
-            return labels[cat] || cat;
-        }
+    function updateCartUI() {
+      const totalCount = cart.reduce((sum, item) => sum + item.qty, 0);
+      const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
 
-        // Filter Functionality
-        function filterCatalog(category) {
-            document.querySelectorAll('.filter-btn').forEach(btn => {
-                btn.classList.remove('bg-brand-purple', 'text-white');
-                btn.classList.add('bg-white/5', 'text-gray-300');
-            });
+      document.getElementById('cart-count').innerText = totalCount;
+      document.getElementById('cart-total').innerText = `${totalPrice} ₴`;
 
-            event.target.classList.remove('bg-white/5', 'text-gray-300');
-            event.target.classList.add('bg-brand-purple', 'text-white');
+      const cartItemsContainer = document.getElementById('cart-items');
+      if (cart.length === 0) {
+        cartItemsContainer.innerHTML = '<p style="color: var(--text-muted); text-align: center; padding: 20px;">Кошик порожній</p>';
+      } else {
+        cartItemsContainer.innerHTML = cart.map(item => `
+          <div class="cart-item">
+            <div class="cart-item-info">
+              <h4>${item.title} (${item.selectedNicotine})</h4>
+              <p>${item.price} ₴ × ${item.qty}</p>
+            </div>
+            <div class="cart-item-controls">
+              <button class="qty-btn" onclick="updateQty('${item.cartItemId}', -1)">-</button>
+              <span>${item.qty}</span>
+              <button class="qty-btn" onclick="updateQty('${item.cartItemId}', 1)">+</button>
+            </div>
+          </div>
+        `).join('');
+      }
+    }
 
-            renderProducts(category);
-        }
+    // Submit Order to Telegram
+    function submitOrder(e) {
+      e.preventDefault();
 
-        // Cart Actions
-        function handleAddFromCatalog(id) {
-            const product = products.find(p => p.id === id);
-            const nicSelect = document.getElementById(`nic-${id}`);
-            const selectedNic = nicSelect ? nicSelect.value : '50mg';
-            
-            addToCart(product.id, product.name, product.price, product.icon, selectedNic);
-        }
+      if (cart.length === 0) {
+        alert('Ваш кошик порожній!');
+        return;
+      }
 
-        function addToCart(id, name, price, icon, nic) {
-            const cartItemId = `${id}-${nic}`;
-            const existingItem = cart.find(item => item.cartItemId === cartItemId);
+      const phone = document.getElementById('order-phone').value;
+      const district = document.getElementById('order-district').value;
+      const address = document.getElementById('order-address').value;
+      const comment = document.getElementById('order-comment').value;
 
-            if (existingItem) {
-                existingItem.qty += 1;
-            } else {
-                cart.push({ cartItemId, id, name, price, icon, nic, qty: 1 });
-            }
+      let itemsList = cart.map((item, index) => 
+        `${index + 1}. ${item.title} (${item.selectedNicotine}) — ${item.qty} шт. x ${item.price} ₴ = ${item.qty * item.price} ₴`
+      ).join('\n');
 
-            updateCartUI();
-            toggleCart(true); // Open cart automatically
-        }
+      const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
 
-        function updateCartQty(cartItemId, delta) {
-            const item = cart.find(i => i.cartItemId === cartItemId);
-            if (item) {
-                item.qty += delta;
-                if (item.qty <= 0) {
-                    cart = cart.filter(i => i.cartItemId !== cartItemId);
-                }
-            }
-            updateCartUI();
-        }
+      let message = `ЗАМОВЛЕННЯ — LIQ TERN\n\n`;
+      message += `📞 Телефон: ${phone}\n`;
+      message += `📍 Район: ${district}\n`;
+      message += `🏠 Локація: ${address}\n`;
+      if (comment) {
+        message += `💬 Коментар: ${comment}\n`;
+      }
+      message += `\n📦 Товари в замовленні:\n${itemsList}\n\n`;
+      message += `💰 Загальна сума: ${totalPrice} ₴`;
 
-        function updateCartUI() {
-            const cartItemsContainer = document.getElementById('cart-items');
-            const cartCountBadge = document.getElementById('cart-count');
-            const cartTotalElement = document.getElementById('cart-total');
+      // Redirect to Telegram with auto-filled text
+      const telegramUsername = 'liq_tern';
+      const encodedMessage = encodeURIComponent(message);
+      window.open(`https://t.me/${telegramUsername}?text=${encodedMessage}`, '_blank');
 
-            // Total count
-            const totalQty = cart.reduce((sum, item) => sum + item.qty, 0);
-            cartCountBadge.innerText = totalQty;
-
-            // Total price
-            const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
-            cartTotalElement.innerText = `${totalPrice} ₴`;
-
-            // Cart HTML list
-            if (cart.length === 0) {
-                cartItemsContainer.innerHTML = `
-                    <div class="text-center py-12 text-gray-500">
-                        <i class="fa-solid fa-basket-shopping text-4xl mb-3 block"></i>
-                        Ваш кошик порожній
-                    </div>
-                `;
-                return;
-            }
-
-            cartItemsContainer.innerHTML = cart.map(item => `
-                <div class="flex items-center justify-between bg-white/5 p-3 rounded-xl border border-white/5">
-                    <div class="flex items-center gap-3">
-                        <span class="text-2xl">${item.icon}</span>
-                        <div>
-                            <h4 class="text-sm font-semibold text-white">${item.name}</h4>
-                            <p class="text-xs text-brand-purple">${item.nic} • ${item.price} ₴</p>
-                        </div>
-                    </div>
-
-                    <div class="flex items-center gap-2 bg-brand-dark/80 px-2 py-1 rounded-lg border border-white/10">
-                        <button onclick="updateCartQty('${item.cartItemId}', -1)" class="text-gray-400 hover:text-white px-1.5">-</button>
-                        <span class="text-xs font-bold text-white px-1">${item.qty}</span>
-                        <button onclick="updateCartQty('${item.cartItemId}', 1)" class="text-gray-400 hover:text-white px-1.5">+</button>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        // Cart Drawer Control
-        function toggleCart(forceOpen = false) {
-            const drawer = document.getElementById('cart-drawer');
-            const content = document.getElementById('cart-content');
-
-            if (forceOpen || drawer.classList.contains('opacity-0')) {
-                drawer.classList.remove('pointer-events-none', 'opacity-0');
-                content.classList.remove('translate-x-full');
-            } else {
-                drawer.classList.add('opacity-0', 'pointer-events-none');
-                content.classList.add('translate-x-full');
-            }
-        }
-
-        // Checkout Modal Control
-        function openCheckoutModal() {
-            if (cart.length === 0) {
-                alert('Додайте хоча б один товар у кошик!');
-                return;
-            }
-            toggleCart();
-            document.getElementById('checkout-modal').classList.remove('hidden');
-        }
-
-        function closeCheckoutModal() {
-            document.getElementById('checkout-modal').classList.add('hidden');
-        }
-
-        function submitOrder(e) {
-            e.preventDefault();
-
-            const phone = document.getElementById('cust-phone').value.trim();
-            const district = document.getElementById('cust-district').value;
-            const address = document.getElementById('cust-address').value.trim();
-            const comment = document.getElementById('cust-comment').value.trim();
-
-            const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
-
-            // Format order items list
-            let itemsText = cart.map((item, idx) => 
-                `${idx + 1}. ${item.name} (${item.nic}) — ${item.qty} шт. x ${item.price} ₴ = ${item.qty * item.price} ₴`
-            ).join('\n');
-
-            // Format total text for Telegram
-            let orderMessage = `ЗАМОВЛЕННЯ — LIQ TERN\n\n` +
-                `📞 Телефон: ${phone}\n` +
-                `📍 Район: ${district}\n` +
-                `🏠 Локація: ${address}\n` +
-                (comment ? `💬 Коментар: ${comment}\n` : '') +
-                `\n📦 Товари в замовленні:\n${itemsText}\n\n` +
-                `💰 Загальна сума: ${totalPrice} ₴`;
-
-            // Encode text for Telegram URL deep link
-            const encodedText = encodeURIComponent(orderMessage);
-            const telegramUrl = `https://t.me/liq_tern?text=${encodedText}`;
-
-            // Open Telegram with pre-filled message directly in the chat box
-            window.open(telegramUrl, '_blank');
-
-            // Reset cart and UI
-            cart = [];
-            updateCartUI();
-            closeCheckoutModal();
-        }
-
-        // Mobile Menu Toggle
-        function toggleMobileMenu() {
-            const menu = document.getElementById('mobile-menu');
-            menu.classList.toggle('hidden');
-        }
-    </script>
+      // Clear Cart
+      cart = [];
+      updateCartUI();
+      toggleCart();
+    }
+  </script>
 </body>
 </html>
