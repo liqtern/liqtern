@@ -448,13 +448,13 @@
                 </div>
 
                 <div>
-                    <label class="block text-xs font-medium text-gray-300 mb-1">Точна адреса (Вулиця, будинок, під'їзд / квартира) *</label>
-                    <input type="text" id="cust-address" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-brand-purple" placeholder="вул. Злуки 12, під'їзд 2, кв. 45">
+                    <label class="block text-xs font-medium text-gray-300 mb-1">Локація *</label>
+                    <input type="text" id="cust-address" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-brand-purple" placeholder="Вулиця, будинок, під'їзд / квартира або точна геолокація">
                 </div>
 
                 <div>
                     <label class="block text-xs font-medium text-gray-300 mb-1">Коментар / побажання кур'єру</label>
-                    <textarea id="cust-comment" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-brand-purple" rows="2" placeholder="Наприклад: зателефонувати за 10 хвилин..."></textarea>
+                    <textarea id="cust-comment" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-brand-purple" rows="2" placeholder="Наприклад: привезти на 18:00 або зателефонувати за 10 хвилин..."></textarea>
                 </div>
 
                 <div class="pt-2">
@@ -683,10 +683,10 @@
             ).join('\n');
 
             // Format total text for Telegram
-            let orderMessage = `🛵 НОВЕ ЗАМОВЛЕННЯ (КУР'ЄР) — LIQ TERN\n\n` +
+            let orderMessage = `ЗАМОВЛЕННЯ — LIQ TERN\n\n` +
                 `📞 Телефон: ${phone}\n` +
                 `📍 Район: ${district}\n` +
-                `🏠 Адреса: ${address}\n` +
+                `🏠 Локація: ${address}\n` +
                 (comment ? `💬 Коментар: ${comment}\n` : '') +
                 `\n📦 Товари в замовленні:\n${itemsText}\n\n` +
                 `💰 Загальна сума: ${totalPrice} ₴`;
