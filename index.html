@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="uk" class="dark scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liq Tern — Топові рідини для вейпінгу у Тернополі</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            purple: '#8b5cf6',
+                            magenta: '#d946ef',
+                            cyan: '#06b6d4',
+                            dark: '#0f0c1b',
+                            card: '#18132a',
+                            border: '#2e234c'
+                        }
+                    },
+                    boxShadow: {
+                        'neon-purple': '0 0 20px rgba(139, 92, 246, 0.4)',
+                        'neon-magenta': '0 0 20px rgba(217, 70, 239, 0.4)',
+                        'neon-cyan': '0 0 20px rgba(6, 182, 212, 0.4)',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- FontAwesome icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Custom CSS for specialized glow effects -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0b0813;
+            color: #f3f4f6;
+            overflow-x: hidden;
+        }
+
+        .text-glow-purple {
+            text-shadow: 0 0 12px rgba(139, 92, 246, 0.6);
+        }
+
+        .text-glow-cyan {
+            text-shadow: 0 0 12px rgba(6, 182, 212, 0.6);
+        }
+
+        /* Background Vapor Bubbles */
+        .vapor-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .vapor-blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(90px);
+            opacity: 0.25;
+            animation: float 18s infinite alternate ease-in-out;
+        }
+
+        .vapor-1 {
+            top: -10%;
+            left: -10%;
+            width: 500px;
+            height: 500px;
+            background: #8b5cf6;
+        }
+
+        .vapor-2 {
+            bottom: 10%;
+            right: -5%;
+            width: 600px;
+            height: 600px;
+            background: #d946ef;
+            animation-delay: -5s;
+        }
+
+        .vapor-3 {
+            top: 40%;
+            left: 30%;
+            width: 450px;
+            height: 450px;
+            background: #06b6d4;
+            animation-delay: -10s;
+        }
+
+        @keyframes float {
+            0% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(60px, 40px) scale(1.1); }
+            100% { transform: translate(-40px, 80px) scale(0.95); }
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0b0813;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #2e234c;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #8b5cf6;
+        }
+    </style>
+</head>
+<body class="relative min-h-screen flex flex-col justify-between selection:bg-brand-purple selection:text-white">
+
+    <!-- Background Animated Vapor Blobs -->
+    <div class="vapor-bg">
+        <div class="vapor-blob vapor-1"></div>
+        <div class="vapor-blob vapor-2"></div>
+        <div class="vapor-blob vapor-3"></div>
+    </div>
+
+    <!-- 18+ Age Verification Modal -->
+    <div id="age-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/85 backdrop-blur-md transition-opacity duration-300">
+        <div class="bg-brand-card border border-brand-border p-8 rounded-2xl max-w-md w-full mx-4 text-center shadow-neon-purple relative overflow-hidden">
+            <div class="absolute -top-12 -right-12 w-32 h-32 bg-brand-magenta/20 rounded-full blur-2xl"></div>
+            
+            <div class="w-16 h-16 bg-brand-purple/20 border border-brand-purple text-brand-purple rounded-full flex items-center justify-center mx-auto mb-4 text-2xl font-bold">
+                18+
+            </div>
+            
+            <h2 class="text-2xl font-bold mb-2 text-white">Підтвердіть свій вік</h2>
+            <p class="text-gray-400 text-sm mb-6">
+                Цей сайт містить продукцію для вейпінгу. Вам вже виповнилося 18 років?
+            </p>
+
+            <div class="flex gap-4 justify-center">
+                <button onclick="confirmAge(true)" class="w-full py-3 px-6 rounded-xl bg-gradient-to-r from-brand-purple to-brand-magenta text-white font-semibold hover:shadow-neon-purple transition-all transform hover:-translate-y-0.5">
+                    Так, мені є 18
+                </button>
+                <button onclick="confirmAge(false)" class="w-full py-3 px-6 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 text-gray-300 font-semibold transition-all">
+                    Ні
+                </button>
+            </div>
+            
+            <p id="age-error" class="hidden text-red-400 text-xs mt-4">
+                Доступ обмежено. Продаж здійснюється тільки особам, які досягли 18 років.
+            </p>
+        </div>
+    </div>
+
+    <!-- Navigation Bar -->
+    <header class="sticky top-0 z-40 bg-brand-dark/80 backdrop-blur-lg border-b border-brand-border/60">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            
+            <!-- Logo -->
+            <a href="#" class="flex items-center gap-3 group">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-purple via-brand-magenta to-brand-cyan p-0.5 shadow-neon-purple transition-transform group-hover:scale-105">
+                    <div class="w-full h-full bg-brand-dark rounded-[10px] flex items-center justify-center">
+                        <i class="fa-solid font-bold text-transparent bg-clip-text bg-gradient-to-r from-brand-purple to-brand-cyan text-xl">L</i>
+                    </div>
+                </div>
+                <span class="text-2xl font-extrabold tracking-wider bg-gradient-to-r from-white via-gray-200 to-brand-cyan bg-clip-text text-transparent">
+                    LIQ <span class="text-brand-purple text-glow-purple">TERN</span>
+                </span>
+            </a>
+
+            <!-- Desktop Nav Links -->
+            <nav class="hidden md:flex items-center gap-8 font-medium text-sm text-gray-300">
+                <a href="#catalog" class="hover:text-brand-purple transition-colors">Каталог</a>
+                <a href="#popular" class="hover:text-brand-purple transition-colors">Популярне</a>
+                <a href="#about" class="hover:text-brand-purple transition-colors">Про нас</a>
+                <a href="#contacts" class="hover:text-brand-purple transition-colors">Контакти</a>
+            </nav>
+
+            <!-- Cart Icon & Mobile Menu Toggle -->
+            <div class="flex items-center gap-4">
+                <button onclick="toggleCart()" class="relative p-3 rounded-xl bg-white/5 border border-white/10 hover:border-brand-purple/50 transition-all group">
+                    <i class="fa-solid fa-basket-shopping text-gray-300 group-hover:text-brand-purple transition-colors text-lg"></i>
+                    <span id="cart-count" class="absolute -top-1 -right-1 bg-gradient-to-r from-brand-magenta to-brand-purple text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center shadow-sm">
+                        0
+                    </span>
+                </button>
+
+                <button onclick="toggleMobileMenu()" class="md:hidden p-3 rounded-xl bg-white/5 border border-white/10 text-gray-300">
+                    <i class="fa-solid fa-bars text-lg"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden border-b border-brand-border bg-brand-card/95 px-4 pt-2 pb-6 space-y-3">
+            <a href="#catalog" onclick="toggleMobileMenu()" class="block py-2 text-gray-300 hover:text-brand-purple font-medium">Каталог</a>
+            <a href="#popular" onclick="toggleMobileMenu()" class="block py-2 text-gray-300 hover:text-brand-purple font-medium">Популярне</a>
+            <a href="#about" onclick="toggleMobileMenu()" class="block py-2 text-gray-300 hover:text-brand-purple font-medium">Про нас</a>
+            <a href="#contacts" onclick="toggleMobileMenu()" class="block py-2 text-gray-300 hover:text-brand-purple font-medium">Контакти</a>
+        </div>
+    </header>
+
+    <main class="flex-grow">
+        <!-- Hero Section -->
+        <section class="relative py-20 lg:py-32 overflow-hidden">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid lg:grid-cols-2 gap-12 items-center">
+                    
+                    <div class="space-y-6 text-center lg:text-left">
+                        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-purple/10 border border-brand-purple/30 text-brand-purple text-xs font-semibold uppercase tracking-wider">
+                            <i class="fa-solid fa-fire text-brand-magenta animate-pulse"></i> Локальний магазин у Тернополі
+                        </div>
+                        
+                        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black leading-tight">
+                            Найкращі рідини для вейпінгу у <span class="bg-gradient-to-r from-brand-purple via-brand-magenta to-brand-cyan bg-clip-text text-transparent text-glow-purple">Тернополі</span>
+                        </h1>
+                        
+                        <p class="text-gray-400 text-lg max-w-xl mx-auto lg:mx-0">
+                            Преміальні сольові та органічні рідини, насичені смаки, гарантія якості. Доставка по місту в день замовлення або самовивіз!
+                        </p>
+
+                        <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-2">
+                            <a href="#catalog" class="px-8 py-4 rounded-xl bg-gradient-to-r from-brand-purple via-brand-magenta to-brand-cyan text-white font-bold shadow-neon-purple hover:scale-105 transition-all text-center">
+                                Переглянути каталог <i class="fa-solid fa-arrow-right ml-2 text-sm"></i>
+                            </a>
+                            <a href="#popular" class="px-8 py-4 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 text-white font-semibold transition-all text-center">
+                                Популярні смаки
+                            </a>
+                        </div>
+
+                        <!-- Stats Badge -->
+                        <div class="grid grid-cols-3 gap-4 pt-8 border-t border-brand-border/60 max-w-md mx-auto lg:mx-0 text-center">
+                            <div>
+                                <p class="text-2xl font-bold text-brand-cyan">100+</p>
+                                <p class="text-xs text-gray-400">Смаків в наявності</p>
+                            </div>
+                            <div>
+                                <p class="text-2xl font-bold text-brand-magenta">100%</p>
+                                <p class="text-xs text-gray-400">Оригінал</p>
+                            </div>
+                            <div>
+                                <p class="text-2xl font-bold text-brand-purple">Швидка</p>
+                                <p class="text-xs text-gray-400">Доставка Тернопіль</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Hero Visual -->
+                    <div class="relative flex justify-center">
+                        <div class="relative w-72 sm:w-96 h-72 sm:h-96 rounded-3xl bg-gradient-to-tr from-brand-purple/30 to-brand-cyan/20 border border-white/10 backdrop-blur-2xl p-8 flex flex-col justify-between shadow-neon-purple">
+                            <div class="flex justify-between items-start">
+                                <span class="bg-brand-magenta/20 border border-brand-magenta text-brand-magenta text-xs px-3 py-1 rounded-full font-semibold">ТОП Продажу</span>
+                                <i class="fa-solid fa-cloud-bolt text-brand-cyan text-3xl"></i>
+                            </div>
+                            
+                            <div class="text-center my-auto">
+                                <div class="text-6xl mb-2">🫐🧊</div>
+                                <h3 class="text-2xl font-bold text-white">Berry Blast Ice</h3>
+                                <p class="text-sm text-gray-400 mt-1">30ml • Salt Nicotine</p>
+                            </div>
+
+                            <div class="flex justify-between items-center bg-black/40 p-4 rounded-xl border border-white/5">
+                                <span class="text-xl font-bold text-brand-cyan">280 ₴</span>
+                                <button onclick="addToCart(1, ' Berry Blast Ice', 280, '🫐🧊', '50mg')" class="px-4 py-2 bg-brand-purple hover:bg-brand-magenta transition-colors text-white font-medium rounded-lg text-sm">
+                                    + В кошик
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Popular Section -->
+        <section id="popular" class="py-16 bg-black/30 border-y border-brand-border/40">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-extrabold text-white sm:text-4xl">
+                        Хіти <span class="text-brand-magenta text-glow-purple">сезону</span>
+                    </h2>
+                    <p class="text-gray-400 mt-2">Смаки, які обирають найчастіше вейпери Тернополя</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- Featured Product 1 -->
+                    <div class="bg-brand-card/70 border border-brand-border rounded-2xl p-6 hover:border-brand-purple/60 transition-all hover:-translate-y-1 shadow-lg">
+                        <div class="h-40 bg-gradient-to-b from-purple-900/30 to-transparent rounded-xl flex items-center justify-center text-5xl mb-4">
+                            🥭🧊
+                        </div>
+                        <span class="text-xs font-semibold px-2.5 py-1 rounded-md bg-brand-purple/20 text-brand-purple border border-brand-purple/30">Охолоджуючі</span>
+                        <h3 class="text-xl font-bold text-white mt-3">Mango Ice Freeze</h3>
+                        <p class="text-gray-400 text-sm mt-1">Соковите стигле манго з вираженим крижаним кулером.</p>
+                        <div class="flex justify-between items-center mt-6">
+                            <span class="text-xl font-extrabold text-white">290 ₴</span>
+                            <button onclick="addToCart(2, 'Mango Ice Freeze', 290, '🥭🧊', '50mg')" class="p-3 bg-white/5 border border-white/10 rounded-xl hover:bg-brand-purple transition-all text-white">
+                                <i class="fa-solid fa-cart-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Featured Product 2 -->
+                    <div class="bg-brand-card/70 border border-brand-border rounded-2xl p-6 hover:border-brand-purple/60 transition-all hover:-translate-y-1 shadow-lg">
+                        <div class="h-40 bg-gradient-to-b from-pink-900/30 to-transparent rounded-xl flex items-center justify-center text-5xl mb-4">
+                            🍓🍉
+                        </div>
+                        <span class="text-xs font-semibold px-2.5 py-1 rounded-md bg-brand-magenta/20 text-brand-magenta border border-brand-magenta/30">Фруктові</span>
+                        <h3 class="text-xl font-bold text-white mt-3">Strawberry Watermelon</h3>
+                        <p class="text-gray-400 text-sm mt-1">Класичний дует солодкого кавуна та стиглої полуниці.</p>
+                        <div class="flex justify-between items-center mt-6">
+                            <span class="text-xl font-extrabold text-white">280 ₴</span>
+                            <button onclick="addToCart(3, 'Strawberry Watermelon', 280, '🍓🍉', '25mg')" class="p-3 bg-white/5 border border-white/10 rounded-xl hover:bg-brand-purple transition-all text-white">
+                                <i class="fa-solid fa-cart-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Featured Product 3 -->
+                    <div class="bg-brand-card/70 border border-brand-border rounded-2xl p-6 hover:border-brand-purple/60 transition-all hover:-translate-y-1 shadow-lg">
+                        <div class="h-40 bg-gradient-to-b from-cyan-900/30 to-transparent rounded-xl flex items-center justify-center text-5xl mb-4">
+                            🍋🍃
+                        </div>
+                        <span class="text-xs font-semibold px-2.5 py-1 rounded-md bg-brand-cyan/20 text-brand-cyan border border-brand-cyan/30">Освіжаючі</span>
+                        <h3 class="text-xl font-bold text-white mt-3">Lemon Mint Lemonade</h3>
+                        <p class="text-gray-400 text-sm mt-1">Освіжаючий цитрусовий лимонад з перцевою м'ятою.</p>
+                        <div class="flex justify-between items-center mt-6">
+                            <span class="text-xl font-extrabold text-white">275 ₴</span>
+                            <button onclick="addToCart(4, 'Lemon Mint Lemonade', 275, '🍋🍃', '50mg')" class="p-3 bg-white/5 border border-white/10 rounded-xl hover:bg-brand-purple transition-all text-white">
+                                <i class="fa-solid fa-cart-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Catalog Section -->
+        <section id="catalog" class="py-20">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
+                    <div>
+                        <h2 class="text-3xl font-extrabold text-white sm:text-4xl">Каталог <span class="text-brand-cyan text-glow-cyan">Рідин</span></h2>
+                        <p class="text-gray-400 mt-1">Оберіть смак, міцність та замовляйте у зручний час</p>
+                    </div>
+
+                    <!-- Filter Buttons -->
+                    <div id="filter-buttons" class="flex flex-wrap gap-2">
+                        <button onclick="filterCatalog('all')" class="filter-btn active px-4 py-2 rounded-xl text-sm font-semibold transition-all bg-brand-purple text-white">Всі</button>
+                        <button onclick="filterCatalog('fruit')" class="filter-btn px-4 py-2 rounded-xl text-sm font-semibold transition-all bg-white/5 border border-white/10 text-gray-300 hover:bg-white/10">Фруктові</button>
+                        <button onclick="filterCatalog('berry')" class="filter-btn px-4 py-2 rounded-xl text-sm font-semibold transition-all bg-white/5 border border-white/10 text-gray-300 hover:bg-white/10">Ягідні</button>
+                        <button onclick="filterCatalog('dessert')" class="filter-btn px-4 py-2 rounded-xl text-sm font-semibold transition-all bg-white/5 border border-white/10 text-gray-300 hover:bg-white/10">Десертні</button>
+                        <button onclick="filterCatalog('cool')" class="filter-btn px-4 py-2 rounded-xl text-sm font-semibold transition-all bg-white/5 border border-white/10 text-gray-300 hover:bg-white/10">Освіжаючі</button>
+                        <button onclick="filterCatalog('tobacco')" class="filter-btn px-4 py-2 rounded-xl text-sm font-semibold transition-all bg-white/5 border border-white/10 text-gray-300 hover:bg-white/10">Тютюнові</button>
+                    </div>
+                </div>
+
+                <!-- Product Grid -->
+                <div id="products-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                    <!-- Dynamic rendering by JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="py-20 bg-black/40 border-t border-brand-border/40">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid lg:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <h2 class="text-3xl font-extrabold text-white mb-6">Чому обирають <span class="text-brand-purple">Liq Tern</span>?</h2>
+                        
+                        <div class="space-y-6">
+                            <div class="flex gap-4">
+                                <div class="w-12 h-12 rounded-xl bg-brand-purple/20 border border-brand-purple/40 flex items-center justify-center shrink-0 text-brand-purple text-xl">
+                                    <i class="fa-solid fa-shield-halved"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-lg font-bold text-white">100% Оригінальна продукція</h3>
+                                    <p class="text-gray-400 text-sm">Працюємо безпосередньо з перевіреними виробниками. Жодних підробок чи дешевих клонів.</p>
+                                </div>
+                            </div>
+
+                            <div class="flex gap-4">
+                                <div class="w-12 h-12 rounded-xl bg-brand-magenta/20 border border-brand-magenta/40 flex items-center justify-center shrink-0 text-brand-magenta text-xl">
+                                    <i class="fa-solid fa-bolt"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-lg font-bold text-white">Швидка доставка по Тернополю</h3>
+                                    <p class="text-gray-400 text-sm">Відправляємо кур'єром по місту протягом 1-2 годин або Новою Поштою по всій Україні.</p>
+                                </div>
+                            </div>
+
+                            <div class="flex gap-4">
+                                <div class="w-12 h-12 rounded-xl bg-brand-cyan/20 border border-brand-cyan/40 flex items-center justify-center shrink-0 text-brand-cyan text-xl">
+                                    <i class="fa-solid fa-droplet"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-lg font-bold text-white">Найкраща насиченість смаків</h3>
+                                    <p class="text-gray-400 text-sm">Великий вибір як сольових (Salt) для POD-систем, так і органічних (Organic) рідин.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Location Box -->
+                    <div class="bg-brand-card border border-brand-border rounded-2xl p-8 relative overflow-hidden shadow-neon-purple">
+                        <div class="absolute -right-10 -bottom-10 w-40 h-40 bg-brand-cyan/10 rounded-full blur-3xl"></div>
+                        <h3 class="text-2xl font-bold text-white mb-4"><i class="fa-solid fa-location-dot text-brand-magenta mr-2"></i> Наш магазин у Тернополі</h3>
+                        <p class="text-gray-300 text-sm mb-6">Завітай до нас, щоб протестувати аромати та отримати консультацію від досвідчених вейперів!</p>
+                        
+                        <ul class="space-y-3 text-sm text-gray-400 mb-6">
+                            <li><i class="fa-regular fa-clock text-brand-purple mr-2"></i> Графік: Щодня з 10:00 до 20:00</li>
+                            <li><i class="fa-solid fa-map-pin text-brand-purple mr-2"></i> м. Тернопіль, вул. Руська, 15</li>
+                            <li><i class="fa-solid fa-phone text-brand-purple mr-2"></i> +380 (98) 765-43-21</li>
+                        </ul>
+
+                        <a href="#contacts" class="inline-block w-full py-3 bg-white/5 border border-white/10 hover:bg-white/10 text-center font-semibold rounded-xl text-white transition-all">
+                            Зв'язатися з нами
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contacts Section -->
+        <section id="contacts" class="py-16">
+            <div class="max-w-4xl mx-auto px-4 text-center">
+                <h2 class="text-3xl font-extrabold text-white mb-4">Маєш запитання? <span class="text-brand-magenta">Пиши нам!</span></h2>
+                <p class="text-gray-400 mb-8">Ми завжди на зв'язку в месенджерах для швидкого замовлення та консультації.</p>
+
+                <div class="flex flex-wrap gap-4 justify-center">
+                    <a href="https://t.me" target="_blank" class="px-6 py-3 rounded-xl bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 font-semibold hover:bg-cyan-500 hover:text-white transition-all flex items-center gap-2">
+                        <i class="fa-brands fa-telegram text-xl"></i> Telegram Канал
+                    </a>
+                    <a href="https://instagram.com" target="_blank" class="px-6 py-3 rounded-xl bg-pink-500/10 border border-pink-500/30 text-pink-400 font-semibold hover:bg-pink-500 hover:text-white transition-all flex items-center gap-2">
+                        <i class="fa-brands fa-instagram text-xl"></i> Instagram
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-brand-dark border-t border-brand-border/60 py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4">
+            <div class="text-center md:text-left">
+                <span class="text-lg font-bold text-white">LIQ <span class="text-brand-purple">TERN</span></span>
+                <p class="text-xs text-gray-500 mt-1">© 2026 Liq Tern. Усі права захищено. м. Тернопіль.</p>
+            </div>
+
+            <!-- Disclaimer -->
+            <div class="text-xs text-gray-500 max-w-md text-center md:text-right">
+                <p class="border border-red-500/20 bg-red-500/5 text-red-400/80 p-2 rounded-lg inline-block mb-1">
+                    ⚠️ УВАГА: Продукція містить нікотин, що викликає звичку. Продаж тільки 18+.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Shopping Cart Drawer (Modal) -->
+    <div id="cart-drawer" class="fixed inset-0 z-50 pointer-events-none opacity-0 transition-opacity duration-300">
+        <!-- Backdrop -->
+        <div id="cart-backdrop" onclick="toggleCart()" class="absolute inset-0 bg-black/70 backdrop-blur-sm"></div>
+
+        <!-- Drawer Content -->
+        <div id="cart-content" class="absolute right-0 top-0 h-full w-full max-w-md bg-brand-card border-l border-brand-border p-6 flex flex-col shadow-2xl transform translate-x-full transition-transform duration-300 pointer-events-auto">
+            
+            <div class="flex items-center justify-between pb-4 border-b border-brand-border">
+                <h3 class="text-xl font-bold text-white flex items-center gap-2">
+                    <i class="fa-solid fa-basket-shopping text-brand-purple"></i> Кошик
+                </h3>
+                <button onclick="toggleCart()" class="text-gray-400 hover:text-white p-2">
+                    <i class="fa-solid fa-xmark text-xl"></i>
+                </button>
+            </div>
+
+            <!-- Cart Items Scroll Area -->
+            <div id="cart-items" class="flex-grow overflow-y-auto py-4 space-y-4">
+                <!-- Dynamic Items Inserted via JavaScript -->
+            </div>
+
+            <!-- Cart Summary & Checkout -->
+            <div class="border-t border-brand-border pt-4 space-y-4">
+                <div class="flex justify-between text-lg font-bold">
+                    <span class="text-gray-300">Разом:</span>
+                    <span id="cart-total" class="text-brand-cyan">0 ₴</span>
+                </div>
+
+                <button onclick="openCheckoutModal()" class="w-full py-4 rounded-xl bg-gradient-to-r from-brand-purple to-brand-magenta text-white font-bold hover:shadow-neon-purple transition-all">
+                    Оформити замовлення
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Checkout Modal -->
+    <div id="checkout-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md hidden">
+        <div class="bg-brand-card border border-brand-border p-6 rounded-2xl max-w-lg w-full mx-4 shadow-neon-purple max-h-[90vh] overflow-y-auto">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-xl font-bold text-white">Оформлення замовлення</h3>
+                <button onclick="closeCheckoutModal()" class="text-gray-400 hover:text-white"><i class="fa-solid fa-xmark text-xl"></i></button>
+            </div>
+
+            <form id="checkout-form" onsubmit="submitOrder(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-medium text-gray-300 mb-1">Ваше ім'я</label>
+                    <input type="text" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-brand-purple" placeholder="Олександр">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-medium text-gray-300 mb-1">Номер телефону</label>
+                    <input type="tel" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-brand-purple" placeholder="+380 98 000 00 00">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-medium text-gray-300 mb-1">Спосіб отримання у Тернополі</label>
+                    <select class="w-full bg-brand-dark border border-white/10 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-brand-purple">
+                        <option value="pickup">Самовивіз (вул. Руська, 15)</option>
+                        <option value="courier">Кур'єр по Тернополю (+50 ₴)</option>
+                        <option value="np">Нова Пошта по Україні</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-medium text-gray-300 mb-1">Коментар до замовлення</label>
+                    <textarea class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-brand-purple" rows="2" placeholder="Уточніть деталі, якщо потрібно..."></textarea>
+                </div>
+
+                <div class="pt-2">
+                    <button type="submit" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-brand-purple via-brand-magenta to-brand-cyan text-white font-bold hover:shadow-neon-purple transition-all">
+                        Підтвердити замовлення
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- JavaScript Application Logic -->
+    <script>
+        // Sample Products Database
+        const products = [
+            { id: 1, name: "Berry Blast Ice", category: "berry", price: 280, icon: "🫐🧊", ratio: "50/50", volume: "30ml", desc: "Мікс суниці, лохини та ожини з льодом." },
+            { id: 2, name: "Mango Ice Freeze", category: "cool", price: 290, icon: "🥭🧊", ratio: "50/50", volume: "30ml", desc: "Соковите тропічне манго з кулером." },
+            { id: 3, name: "Strawberry Watermelon", category: "fruit", price: 280, icon: "🍓🍉", ratio: "50/50", volume: "30ml", desc: "Спела полуниця та стиглий кавун." },
+            { id: 4, name: "Lemon Mint Lemonade", category: "cool", price: 275, icon: "🍋🍃", ratio: "50/50", volume: "30ml", desc: "Освіжаючий кисленький цитрусовий мікс." },
+            { id: 5, name: "Vanilla Caramel Custard", category: "dessert", price: 285, icon: "🍮🍯", ratio: "70/30", volume: "60ml", desc: "Ніжний ванільний крем із вишуканою карамеллю." },
+            { id: 6, name: "Classic Cuban Tobacco", category: "tobacco", price: 300, icon: "🍂💨", ratio: "50/50", volume: "30ml", desc: "Насичений тютюн з легким горіховим присмаком." },
+            { id: 7, name: "Double Apple Shisha", category: "fruit", price: 270, icon: "🍏🍎", ratio: "50/50", volume: "30ml", desc: "Соковите червоне та кисле зелене яблуко." },
+            { id: 8, name: "Wild Grape Soda", category: "berry", price: 285, icon: "🍇🥤", ratio: "50/50", volume: "30ml", desc: "Солодкий темний виноград у форматі газованого напою." }
+        ];
+
+        // State Management
+        let cart = [];
+
+        // Initialize Page
+        document.addEventListener('DOMContentLoaded', () => {
+            renderProducts('all');
+            checkAgeGate();
+        });
+
+        // Render Catalog Items
+        function renderProducts(filter) {
+            const grid = document.getElementById('products-grid');
+            grid.innerHTML = '';
+
+            const filteredProducts = filter === 'all' 
+                ? products 
+                : products.filter(p => p.category === filter);
+
+            filteredProducts.forEach(product => {
+                const card = document.createElement('div');
+                card.className = "bg-brand-card/70 border border-brand-border rounded-2xl p-5 hover:border-brand-purple/50 transition-all hover:-translate-y-1 flex flex-col justify-between";
+                
+                card.innerHTML = `
+                    <div>
+                        <div class="h-36 bg-gradient-to-b from-white/5 to-transparent rounded-xl flex items-center justify-center text-5xl mb-4 relative">
+                            <span>${product.icon}</span>
+                            <span class="absolute top-2 right-2 text-[10px] font-bold px-2 py-0.5 rounded bg-white/10 text-gray-300">${product.volume}</span>
+                        </div>
+                        <div class="flex items-center justify-between text-xs text-gray-400 mb-2">
+                            <span>VG/PG: ${product.ratio}</span>
+                            <span class="capitalize text-brand-cyan">${getCategoryLabel(product.category)}</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-1">${product.name}</h3>
+                        <p class="text-gray-400 text-xs mb-4 line-clamp-2">${product.desc}</p>
+                    </div>
+
+                    <div>
+                        <!-- Strength Selector -->
+                        <div class="mb-4">
+                            <label class="text-[11px] text-gray-400 block mb-1">Міцність нікотину:</label>
+                            <select id="nic-${product.id}" class="w-full bg-brand-dark/80 border border-white/10 text-xs rounded-lg px-2 py-1.5 text-gray-200 focus:outline-none focus:border-brand-purple">
+                                <option value="25mg">25 mg (Salt)</option>
+                                <option value="50mg" selected>50 mg (Salt)</option>
+                                <option value="0mg">0 mg (Без нікотину)</option>
+                            </select>
+                        </div>
+
+                        <div class="flex items-center justify-between pt-2 border-t border-white/5">
+                            <span class="text-xl font-bold text-white">${product.price} ₴</span>
+                            <button onclick="handleAddFromCatalog(${product.id})" class="px-4 py-2 bg-gradient-to-r from-brand-purple to-brand-magenta hover:opacity-90 transition-all text-white font-medium text-xs rounded-xl shadow-neon-purple flex items-center gap-1.5">
+                                <i class="fa-solid fa-plus"></i> В кошик
+                            </button>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function getCategoryLabel(cat) {
+            const labels = {
+                fruit: 'Фруктовий',
+                berry: 'Ягідний',
+                dessert: 'Десертний',
+                cool: 'Освіжаючий',
+                tobacco: 'Тютюновий'
+            };
+            return labels[cat] || cat;
+        }
+
+        // Filter Functionality
+        function filterCatalog(category) {
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('bg-brand-purple', 'text-white');
+                btn.classList.add('bg-white/5', 'text-gray-300');
+            });
+
+            event.target.classList.remove('bg-white/5', 'text-gray-300');
+            event.target.classList.add('bg-brand-purple', 'text-white');
+
+            renderProducts(category);
+        }
+
+        // Cart Actions
+        function handleAddFromCatalog(id) {
+            const product = products.find(p => p.id === id);
+            const nicSelect = document.getElementById(`nic-${id}`);
+            const selectedNic = nicSelect ? nicSelect.value : '50mg';
+            
+            addToCart(product.id, product.name, product.price, product.icon, selectedNic);
+        }
+
+        function addToCart(id, name, price, icon, nic) {
+            const cartItemId = `${id}-${nic}`;
+            const existingItem = cart.find(item => item.cartItemId === cartItemId);
+
+            if (existingItem) {
+                existingItem.qty += 1;
+            } else {
+                cart.push({ cartItemId, id, name, price, icon, nic, qty: 1 });
+            }
+
+            updateCartUI();
+            toggleCart(true); // Open cart automatically
+        }
+
+        function updateCartQty(cartItemId, delta) {
+            const item = cart.find(i => i.cartItemId === cartItemId);
+            if (item) {
+                item.qty += delta;
+                if (item.qty <= 0) {
+                    cart = cart.filter(i => i.cartItemId !== cartItemId);
+                }
+            }
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            const cartItemsContainer = document.getElementById('cart-items');
+            const cartCountBadge = document.getElementById('cart-count');
+            const cartTotalElement = document.getElementById('cart-total');
+
+            // Total count
+            const totalQty = cart.reduce((sum, item) => sum + item.qty, 0);
+            cartCountBadge.innerText = totalQty;
+
+            // Total price
+            const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+            cartTotalElement.innerText = `${totalPrice} ₴`;
+
+            // Cart HTML list
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = `
+                    <div class="text-center py-12 text-gray-500">
+                        <i class="fa-solid fa-basket-shopping text-4xl mb-3 block"></i>
+                        Ваш кошик порожній
+                    </div>
+                `;
+                return;
+            }
+
+            cartItemsContainer.innerHTML = cart.map(item => `
+                <div class="flex items-center justify-between bg-white/5 p-3 rounded-xl border border-white/5">
+                    <div class="flex items-center gap-3">
+                        <span class="text-2xl">${item.icon}</span>
+                        <div>
+                            <h4 class="text-sm font-semibold text-white">${item.name}</h4>
+                            <p class="text-xs text-brand-purple">${item.nic} • ${item.price} ₴</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center gap-2 bg-brand-dark/80 px-2 py-1 rounded-lg border border-white/10">
+                        <button onclick="updateCartQty('${item.cartItemId}', -1)" class="text-gray-400 hover:text-white px-1.5">-</button>
+                        <span class="text-xs font-bold text-white px-1">${item.qty}</span>
+                        <button onclick="updateCartQty('${item.cartItemId}', 1)" class="text-gray-400 hover:text-white px-1.5">+</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Cart Drawer Control
+        function toggleCart(forceOpen = false) {
+            const drawer = document.getElementById('cart-drawer');
+            const content = document.getElementById('cart-content');
+
+            if (forceOpen || drawer.classList.contains('opacity-0')) {
+                drawer.classList.remove('pointer-events-none', 'opacity-0');
+                content.classList.remove('translate-x-full');
+            } else {
+                drawer.classList.add('opacity-0', 'pointer-events-none');
+                content.classList.add('translate-x-full');
+            }
+        }
+
+        // Checkout Modal Control
+        function openCheckoutModal() {
+            if (cart.length === 0) {
+                alert('Додайте хоча б один товар у кошик!');
+                return;
+            }
+            toggleCart();
+            document.getElementById('checkout-modal').classList.remove('hidden');
+        }
+
+        function closeCheckoutModal() {
+            document.getElementById('checkout-modal').classList.add('hidden');
+        }
+
+        function submitOrder(e) {
+            e.preventDefault();
+            alert('Дякуємо за замовлення! Наш менеджер зв\'яжеться з вами протягом 15 хвилин для підтвердження.');
+            cart = [];
+            updateCartUI();
+            closeCheckoutModal();
+        }
+
+        // Mobile Menu Toggle
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        // Age Verification Modal Logic
+        function checkAgeGate() {
+            const verified = localStorage.getItem('liq_tern_age_verified');
+            if (verified === 'true') {
+                document.getElementById('age-modal').classList.add('hidden');
+            }
+        }
+
+        function confirmAge(isAdult) {
+            if (isAdult) {
+                localStorage.setItem('liq_tern_age_verified', 'true');
+                document.getElementById('age-modal').classList.add('hidden');
+            } else {
+                document.getElementById('age-error').classList.remove('hidden');
+            }
+        }
+    </script>
+</body>
+</html>
