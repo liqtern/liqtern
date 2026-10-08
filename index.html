@@ -310,9 +310,9 @@
     }
 
     .stock-badge.in-stock {
-      background: rgba(34, 197, 94, 0.2);
-      border: 1px solid rgba(34, 197, 94, 0.5);
-      color: #4ade80;
+      background: rgba(14, 83, 40, 0.562);
+      border: 1px solid rgba(3, 3, 3, 0.5);
+      color: #2ad199;
     }
 
     .stock-badge.out-of-stock {
@@ -761,198 +761,289 @@
   </footer>
 
   <script>
-    // Products Data (inStock: true — в наявності, inStock: false — немає)
+    // Products Data
     const products = [
-      {
-        id: 1,
-        title: "Chaser Berry/Ягоди",
-        category: "berry",
-        price: 340,
-        inStock: false,
-        desc: "змішаний смак різних ягід - яскравий, ароматний і неповторний.",
-        image: "https://i.ibb.co/PzMdryXC/image.webp"
-      },
-      {
-        id: 2,
-        title: "Chaser Mint/Мята",
-        category: "ice",
-        price: 340,
-        inStock: false,
-        desc: "освіжаючий та легкий смак м'яти - додає напою нотку свіжості та драйву, ідеально підходить для освіження.",
-        image: "https://i.ibb.co/v67JP05D/mockup-for-pods-30ml-myata-ultra-800x800w.jpg"
-      },
-      {
-        id: 3,
-        title: "Chaser Смородина Ментол",
-        category: "ice",
-        price: 340,
-        inStock: true,
-        desc: "інтенсивний смак смородини з виразною ноткою ментолу - ягідна солодкість поєднується з освіжаючою ментоловою свіжістю.",
-        image: "https://i.ibb.co/7dPYgnwX/mockup-for-pods-30ml-smorodina-mentool-ultra-800x800-jpg.webp"
-      },
-      {
-        id: 4,
-        title: "Chaser Банан",
-        category: "fruit",
-        price: 340,
-        inStock: false,
-        desc: "насичений і солодкий смак банана - кремовий і ароматний, з характерними тонами соковитого банана.",
-        image: "https://i.ibb.co/xtHsmZSG/mockup-for-pods-30ml-banan-ultra-800x800-jpg.webp"
-      },
-      {
-        id: 5,
-        title: "Chaser Виноград",
-        category: "berry",
-        price: 340,
-        inStock: false,
-        desc: "соковитий і стиглий смак винограду - легкий і освіжаючий, з підкресленою солодкістю.",
-        image: "https://i.ibb.co/qY05Nykr/mockup-for-pods-30ml-vinograd-ultra-800x800-jpg.webp"
-      },
-      {
-        id: 6,
-        title: "Chaser Кавун",
-        category: "berry",
-        price: 340,
-        inStock: false,
-        desc: "солодкий та освіжаючий смак кавуна - ідеальний для гарячого літа, з легкою солодкістю та соковитістю.",
-        image: "https://i.ibb.co/k6DdLBp2/mockup-for-pods-30ml-kavun-ultra-800x800-jpg.webp"
-      },
-      {
-        id: 7,
-        title: "Chaser Кавун Ментол",
-        category: "ice",
-        price: 340,
-        inStock: true,
-        desc: "солодкий кавун з прохолодною ментоловою ноткою.",
-        image: "https://i.ibb.co/mrgTp2D0/mockup-for-pods-30ml-kavun-mentol-ultra-800x800-jpg.webp"
-      },
-      {
-        id: 8,
-        title: "Chaser Лимон",
-        category: "fruit",
-        price: 340,
-        inStock: false,
-        desc: "яскравий цитрусовий смак свіжого лимона з виразною кислинкою і легкою освіжаючою прохолодою.",
-        image: "https://i.ibb.co/wrP99zn1/mockup-for-pods-30ml-limon-ultra-800x800-jpg.webp"
-      },
-      {
-        id: 9,
-        title: "Chaser Гранат",
-        category: "fruit",
-        price: 340,
-        inStock: false,
-        desc: "глибокий фруктовий смак граната з терпкою кислинкою.",
-        image: "https://dartvaper.ua/files/products/mockup-for-pods-30ml-granat-ultra.800x800.jpg.webp"
-      },
-      {
-        id: 10,
-        title: "Chaser Жовта малина",
-        category: "berry",
-        price: 340,
-        inStock: false,
-        desc: "ніжна жовта малина зі збалансованою кислинкою та солодкістю.",
-        image: "https://dartvaper.ua/files/products/pikeki.800x800.jpg.webp"
-      },
-      {
-        id: 11,
-        title: "Chaser Жовта черешня",
-        category: "berry",
-        price: 340,
-        inStock: false,
-        desc: "сонячна жовта черешня з яскравою фруктовою солодкістю.",
-        image: "https://dartvaper.ua/files/products/cher-zhvt.800x800.jpg.webp"
-      },
-      {
-        id: 12,
-        title: "Chaser Жовтий Драгонфрут",
-        category: "fruit",
-        price: 340,
-        inStock: false,
-        desc: "екзотичний смак жовтого драгонфрута з освіжаючим тропічним відтінком.",
-        image: "https://dartvaper.ua/files/products/dragvuau.800x800.jpg.webp"
-      },
-      {
-        id: 13,
-        title: "Chaser Грейпфрут",
-        category: "fruit",
-        price: 340,
-        inStock: false,
-        desc: "яскравий цитрусовий вибух із ідеальним балансом кислинки й гірчинки.",
-        image: "https://dartvaper.ua/files/products/mockup-for-pods-30ml-grejpfrut.800x800.jpg.webp"
-      },
-      {
-        id: 14,
-        title: "Chaser Порічка",
-        category: "berry",
-        price: 340,
-        inStock: false,
-        desc: "насичений ягідний смак із характерною кислинкою чорної порічки.",
-        image: "https://dartvaper.ua/files/products/photo_2025-10-31_16-35-24.800x800.jpg.webp"
-      },
-      {
-        id: 15,
-        title: "Chaser Обліпиха",
-        category: "berry",
-        price: 340,
-        inStock: false,
-        desc: "яскравий і терпкуватий смак стиглої обліпихи.",
-        image: "https://dartvaper.ua/files/products/nabor-chaser-for-pods-oblepiha-30-ml.800x800.jpg.webp"
-      },
-      {
-        id: 16,
-        title: "Chaser Журавлина",
-        category: "berry",
-        price: 340,
-        inStock: false,
-        desc: "кисло-солодкий смак стиглої журавлини з легкою терпкістю.",
-        image: "https://dartvaper.ua/files/products/nabor-chaser-for-pods-zhuravlina-30-ml.800x800.jpg.webp"
-      },
-      {
-        id: 17,
-        title: "Chaser Барбарис",
-        category: "dessert",
-        price: 340,
-        inStock: false,
-        desc: "насичений кисло-солодкий смак барбарису з виразною ягідною кислинкою, легкою терпкістю та освіжаючим післясмаком.",
-        image: "https://dartvaper.ua/files/products/nabor-chaser-for-pods-barbaris-30-ml.800x800.jpg.webp"
-      },
-      {
-        id: 18,
-        title: "Chaser Блакитна Малина",
-        category: "berry",
-        price: 340,
-        inStock: true,
-        desc: "соковитий смак лісової блакитної малини.",
-        image: "https://dartvaper.ua/files/products/mockup-for-pods-30ml-blakitna-malina-ultra.800x800.jpg.webp"
-      },
-      {
-        id: 19,
-        title: "Chaser Кисла чорниця",
-        category: "berry",
-        price: 340,
-        inStock: false,
-        desc: "насичений смак стиглої чорниці з приємною кислинкою.",
-        image: "https://dartvaper.ua/files/products/chornitsyayapods.800x800.jpg.webp"
-      },
-      {
-        id: 20,
-        title: "Chaser Чорниця Ментол",
-        category: "ice",
-        price: 340,
-        inStock: true,
-        desc: "соковитий смак лісової чорниці з характерною свіжістю ментолу - динамічне поєднання ягідної солодкості та освіжаючого ментолового відчуття.",
-        image: "https://dartvaper.ua/files/products/mockup-for-pods-30ml-mentool-chornitsya-ultra.800x800.jpg.webp"
-      },
-      {
-        id: 21,
-        title: "Chaser Вишня Ментол",
-        category: "ice",
-        price: 340,
-        inStock: true,
-        desc: "солодкий та освіжаючий смак вишні з прохолодною ноткою ментолу - ідеальне поєднання солодкості та свіжості.",
-        image: "https://dartvaper.ua/files/products/mockup-for-pods-30ml-vishnya-mentol-ultra.800x800.jpg.webp"
-      }
-    ];
+  {
+    id: 22,
+    title: "Chaser Lux Чорниця Малина",
+    category: "berry",
+    price: 360,
+    inStock: true,
+    quantity: 2,
+    desc: "насичений мікс чорниці та малини з чарівною ягідною солодкістю.",
+    image: "https://dartvaper.ua/files/products/yachyachyachya4.800x800.jpg.webp"
+  },
+  {
+    id: 23,
+    title: "Chaser Lux Ожиновий лимонад",
+    category: "drink",
+    price: 360,
+    inStock: true,
+    quantity: 2,
+    desc: "Соковита ожина з яскравою лимонадною кислинкою створює освіжаючий ягодно-цитрусовий мікс.",
+    image: "https://dartvaper.ua/files/products/79n7schgschg.800x800.jpg.webp"
+  },
+  {
+    id: 24,
+    title: "Chaser Lux Чорниця М'ята",
+    category: "ice",
+    price: 360,
+    inStock: true,
+    quantity: 2,
+    desc: "соковитий смак лісової чорниці та м'ятна свіжість.",
+    image: "https://dartvaper.ua/files/products/yachyachyachya44.800x800.jpg.webp"
+  },
+  {
+    id: 25,
+    title: "Chaser Lux Персиковий Чай",
+    category: "drink",
+    price: 360,
+    inStock: true,
+    quantity: 1,
+    desc: "ароматний персиковий чай.",
+    image: "https://dartvaper.ua/files/products/yachyachyachya1111.800x800.jpg.webp"
+  },
+  {
+    id: 26,
+    title: "Chaser Lux Чорна смородина, лимон, персик",
+    category: "fruit",
+    price: 360,
+    inStock: true,
+    quantity: 1,
+    desc: "насичене поєднання ароматної чорної смородини, свіжого лимона та стиглого персика, де солодкі фруктові ноти гармонійно переплітаються з приємною цитрусовою кислинкою.",
+    image: "https://dartvaper.ua/files/products/nabor-chaser-lux-blackcurrant-lemon-peach-30-ml.800x800.jpg.webp"
+  },
+  {
+    id: 27,
+    title: "Chaser Lux Ожина та рожева гуава",
+    category: "fruit",
+    price: 360,
+    inStock: true,
+    quantity: 1,
+    desc: "кисло-солодка ожина з екзотичною гуава та ніжним фруктовим балансом.",
+    image: "https://dartvaper.ua/files/products/blackberry-pink-guava.800x800.jpg.webp"
+  },
+  {
+    id: 28,
+    title: "Chaser Lux Нектар із манго",
+    category: "fruit",
+    price: 360,
+    inStock: true,
+    quantity: 1,
+    desc: "Ніжний манговий нектар із природною тропічною солодкістю дарує м'який, екзотичний смак.",
+    image: "https://dartvaper.ua/files/products/rprr4756747.800x800.jpg.webp"
+  },
+  {
+    id: 1,
+    title: "Chaser Berry/Ягоди",
+    category: "berry",
+    price: 340,
+    inStock: true,
+    quantity: 2,
+    desc: "змішаний смак різних ягід - яскравий, ароматний і неповторний.",
+    image: "https://i.ibb.co/PzMdryXC/image.webp"
+  },
+  {
+    id: 2,
+    title: "Chaser Mint/Мята",
+    category: "ice",
+    price: 340,
+    inStock: true,
+    quantity: 3,
+    desc: "освіжаючий та легкий смак м'яти - додає напою нотку свіжості та драйву, ідеально підходить для освіження.",
+    image: "https://i.ibb.co/v67JP05D/mockup-for-pods-30ml-myata-ultra-800x800w.jpg"
+  },
+  {
+    id: 3,
+    title: "Chaser Смородина Ментол",
+    category: "ice",
+    price: 340,
+    inStock: false,
+    quantity: 0,
+    desc: "інтенсивний смак смородини з виразною ноткою ментолу - ягідна солодкість поєднується з освіжаючою ментоловою свіжістю.",
+    image: "https://i.ibb.co/7dPYgnwX/mockup-for-pods-30ml-smorodina-mentool-ultra-800x800-jpg.webp"
+  },
+  {
+    id: 4,
+    title: "Chaser Банан",
+    category: "fruit",
+    price: 340,
+    inStock: false,
+    quantity: 0,
+    desc: "насичений і солодкий смак банана - кремовий і ароматний, з характерними тонами соковитого банана.",
+    image: "https://i.ibb.co/xtHsmZSG/mockup-for-pods-30ml-banan-ultra-800x800-jpg.webp"
+  },
+  {
+    id: 5,
+    title: "Chaser Виноград",
+    category: "fruit",
+    price: 340,
+    inStock: true,
+    quantity: 1,
+    desc: "соковитий і стиглий смак винограду - легкий і освіжаючий, з підкресленою солодкістю.",
+    image: "https://i.ibb.co/qY05Nykr/mockup-for-pods-30ml-vinograd-ultra-800x800-jpg.webp"
+  },
+  {
+    id: 6,
+    title: "Chaser Кавун",
+    category: "fruit",
+    price: 340,
+    inStock: false,
+    quantity: 0,
+    desc: "солодкий та освіжаючий смак кавуна - ідеальний для гарячого літа, з легкою солодкістю та соковитістю.",
+    image: "https://i.ibb.co/k6DdLBp2/mockup-for-pods-30ml-kavun-ultra-800x800-jpg.webp"
+  },
+  {
+    id: 7,
+    title: "Chaser Кавун Ментол",
+    category: "ice",
+    price: 340,
+    inStock: false,
+    quantity: 0,
+    desc: "солодкий кавун з прохолодною ментоловою ноткою.",
+    image: "https://i.ibb.co/mrgTp2D0/mockup-for-pods-30ml-kavun-mentol-ultra-800x800-jpg.webp"
+  },
+  {
+    id: 8,
+    title: "Chaser Лимон",
+    category: "fruit",
+    price: 340,
+    inStock: false,
+    quantity: 0,
+    desc: "яскравий цитрусовий смак свіжого лимона з виразною кислинкою і легкою освіжаючою прохолодою.",
+    image: "https://i.ibb.co/wrP99zn1/mockup-for-pods-30ml-limon-ultra-800x800-jpg.webp"
+  },
+  {
+    id: 9,
+    title: "Chaser Гранат",
+    category: "fruit",
+    price: 340,
+    inStock: false,
+    quantity: 0,
+    desc: "глибокий фруктовий смак граната з терпкою кислинкою.",
+    image: "https://dartvaper.ua/files/products/mockup-for-pods-30ml-granat-ultra.800x800.jpg.webp"
+  },
+  {
+    id: 10,
+    title: "Chaser Жовта малина",
+    category: "berry",
+    price: 340,
+    inStock: false,
+    quantity: 0,
+    desc: "ніжна жовта малина зі збалансованою кислинкою та солодкістю.",
+    image: "https://dartvaper.ua/files/products/pikeki.800x800.jpg.webp"
+  },
+  {
+    id: 11,
+    title: "Chaser Жовта черешня",
+    category: "fruit",
+    price: 340,
+    inStock: false,
+    quantity: 0,
+    desc: "сонячна жовта черешня з яскравою фруктовою солодкістю.",
+    image: "https://dartvaper.ua/files/products/cher-zhvt.800x800.jpg.webp"
+  },
+  {
+    id: 12,
+    title: "Chaser Жовтий Драгонфрут",
+    category: "fruit",
+    price: 340,
+    inStock: false,
+    quantity: 0,
+    desc: "екзотичний смак жовтого драгонфрута з освіжаючим тропічним відтінком.",
+    image: "https://dartvaper.ua/files/products/dragvuau.800x800.jpg.webp"
+  },
+  {
+    id: 13,
+    title: "Chaser Грейпфрут",
+    category: "fruit",
+    price: 340,
+    inStock: false,
+    quantity: 0,
+    desc: "яскравий цитрусовий вибух із ідеальним балансом кислинки й гірчинки.",
+    image: "https://dartvaper.ua/files/products/mockup-for-pods-30ml-grejpfrut.800x800.jpg.webp"
+  },
+  {
+    id: 14,
+    title: "Chaser Порічка",
+    category: "berry",
+    price: 340,
+    inStock: false,
+    quantity: 0,
+    desc: "насичений ягідний смак із характерною кислинкою чорної порічки.",
+    image: "https://dartvaper.ua/files/products/photo_2025-10-31_16-35-24.800x800.jpg.webp"
+  },
+  {
+    id: 15,
+    title: "Chaser Обліпиха",
+    category: "berry",
+    price: 340,
+    inStock: false,
+    quantity: 0,
+    desc: "яскравий і терпкуватий смак стиглої обліпихи.",
+    image: "https://dartvaper.ua/files/products/nabor-chaser-for-pods-oblepiha-30-ml.800x800.jpg.webp"
+  },
+  {
+    id: 16,
+    title: "Chaser Журавлина",
+    category: "berry",
+    price: 340,
+    inStock: false,
+    quantity: 0,
+    desc: "кисло-солодкий смак стиглої журавлини з легкою терпкістю.",
+    image: "https://dartvaper.ua/files/products/nabor-chaser-for-pods-zhuravlina-30-ml.800x800.jpg.webp"
+  },
+  {
+    id: 17,
+    title: "Chaser Барбарис",
+    category: "berry",
+    price: 340,
+    inStock: false,
+    quantity: 0,
+    desc: "насичений кисло-солодкий смак барбарису з виразною ягідною кислинкою, легкою терпкістю та освіжаючим післясмаком.",
+    image: "https://dartvaper.ua/files/products/nabor-chaser-for-pods-barbaris-30-ml.800x800.jpg.webp"
+  },
+  {
+    id: 18,
+    title: "Chaser Блакитна Малина",
+    category: "berry",
+    price: 340,
+    inStock: true,
+    quantity: 1,
+    desc: "соковитий смак лісової блакитної малини.",
+    image: "https://dartvaper.ua/files/products/mockup-for-pods-30ml-blakitna-malina-ultra.800x800.jpg.webp"
+  },
+  {
+    id: 19,
+    title: "Chaser Кисла чорниця",
+    category: "berry",
+    price: 340,
+    inStock: true,
+    quantity: 1,
+    desc: "насичений смак стиглої чорниці з приємною кислинкою.",
+    image: "https://dartvaper.ua/files/products/chornitsyayapods.800x800.jpg.webp"
+  },
+  {
+    id: 20,
+    title: "Chaser Чорниця Ментол",
+    category: "ice",
+    price: 340,
+    inStock: true,
+    quantity: 2,
+    desc: "соковитий смак лісової чорниці з характерною свіжістю ментолу - динамічне поєднання ягідної солодкості та освіжаючого ментолового відчуття.",
+    image: "https://dartvaper.ua/files/products/mockup-for-pods-30ml-mentool-chornitsya-ultra.800x800.jpg.webp"
+  },
+  {
+    id: 21,
+    title: "Chaser Вишня Ментол",
+    category: "ice",
+    price: 340,
+    inStock: false,
+    quantity: 0,
+    desc: "солодкий та освіжаючий смак вишні з прохолодною ноткою ментолу - ідеальне поєднання солодкості та свіжості.",
+    image: "https://dartvaper.ua/files/products/mockup-for-pods-30ml-vishnya-mentol-ultra.800x800.jpg.webp"
+  }
+  ];
 
     let cart = [];
     let selectedNicotine = {};
@@ -969,11 +1060,11 @@
       renderProducts(products);
     });
 
-    // Render Products (Сортування: товари в наявності спочатку)
+    // Render Products
     function renderProducts(items) {
       const container = document.getElementById('products-container');
       
-      // Сортуємо так, щоб inStock: true були вище
+      // Сортуємо: товари в наявності спочатку
       const sortedItems = [...items].sort((a, b) => (b.inStock === a.inStock ? 0 : b.inStock ? 1 : -1));
 
       container.innerHTML = sortedItems.map(p => {
@@ -983,7 +1074,7 @@
             <div class="product-badges">
               <span class="product-tag">Сольова</span>
               <span class="stock-badge ${p.inStock ? 'in-stock' : 'out-of-stock'}">
-                ${p.inStock ? 'В наявності' : 'Немає в наявності'}
+                ${p.inStock ? `В наявності: ${p.quantity} шт.` : 'Немає в наявності'}
               </span>
             </div>
             <img src="${p.image}" alt="${p.title}" class="product-img">
@@ -1015,7 +1106,6 @@
     function selectNicotine(productId, strength) {
       selectedNicotine[productId] = strength;
       
-      // Update UI active buttons
       const activeBtn = document.querySelector('.cat-btn.active');
       const currentCategory = activeBtn ? activeBtn.getAttribute('onclick').match(/'([^']+)'/)[1] : 'all';
       const itemsToRender = currentCategory === 'all' ? products : products.filter(p => p.category === currentCategory);
@@ -1050,7 +1140,12 @@
       const existing = cart.find(item => item.cartItemId === cartItemId);
 
       if (existing) {
-        existing.qty++;
+        if (existing.qty < product.quantity) {
+          existing.qty++;
+        } else {
+          alert(`Максимально доступна кількість: ${product.quantity} шт.`);
+          return;
+        }
       } else {
         cart.push({
           ...product,
@@ -1066,6 +1161,10 @@
     function updateQty(cartItemId, delta) {
       const item = cart.find(i => i.cartItemId === cartItemId);
       if (item) {
+        if (delta > 0 && item.qty >= item.quantity) {
+          alert(`Максимально доступна кількість: ${item.quantity} шт.`);
+          return;
+        }
         item.qty += delta;
         if (item.qty <= 0) {
           cart = cart.filter(i => i.cartItemId !== cartItemId);
@@ -1116,30 +1215,21 @@
       const comment = document.getElementById('order-comment').value;
 
       let itemsList = cart.map((item, index) => 
-        `${index + 1}. ${item.title} (${item.selectedNicotine}) — ${item.qty} шт. x ${item.price} ₴ = ${item.qty * item.price} ₴`
+        `${index + 1}. ${item.title} (${item.selectedNicotine}) — ${item.qty} шт. × ${item.price} ₴`
       ).join('\n');
 
       const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
 
-      let message = `ЗАМОВЛЕННЯ — LIQ TERN\n\n`;
-      message += `📞 Телефон: ${phone}\n`;
-      message += `📍 Район: ${district}\n`;
-      message += `🏠 Локація: ${address}\n`;
-      if (comment) {
-        message += `💬 Коментар: ${comment}\n`;
-      }
-      message += `\n📦 Товари в замовленні:\n${itemsList}\n\n`;
-      message += `💰 Загальна сума: ${totalPrice} ₴`;
+      let text = `📦 **НОВЕ ЗАМОВЛЕННЯ**\n\n`;
+      text += `📱 Телефон: ${phone}\n`;
+      text += `📍 Район: ${district}\n`;
+      text += `🏠 Адреса/Локація: ${address}\n`;
+      if (comment) text += `💬 Коментар: ${comment}\n`;
+      text += `\n🛒 **Товари:**\n${itemsList}\n\n`;
+      text += `💰 **Разом:** ${totalPrice} ₴`;
 
-      // Redirect to Telegram with auto-filled text
-      const telegramUsername = 'liq_tern';
-      const encodedMessage = encodeURIComponent(message);
-      window.open(`https://t.me/${telegramUsername}?text=${encodedMessage}`, '_blank');
-
-      // Clear Cart
-      cart = [];
-      updateCartUI();
-      toggleCart();
+      const telegramUrl = `https://t.me/liq_tern?text=${encodeURIComponent(text)}`;
+      window.open(telegramUrl, '_blank');
     }
   </script>
 </body>
